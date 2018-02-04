@@ -13,7 +13,7 @@
             <div class="ui middle aligned center aligned grid">
                 <div class="column">
                     <h1 class="ui header">Quick Response</h1>
-                    <h:form class="ui large form">
+                    <h:form id="mail" class="ui large form">
                         <div class="ui stacked segment">
                             <div class="field">
                                 <div class="ui left icon action input">
@@ -53,13 +53,13 @@
         <ui:define name="scripts">
             <script type="application/javascript">
                 function togglePassword() {
-                    $('#j_idt10\\:password')
+                    $('#mail\\:password')
                         .prop('disabled', function(i, v) { return !v;});
                 }
 
                 $(document).ready(function () {
-                    $('#j_idt10\\:password')
-                        .prop('disabled', function() { return !$('#j_idt10\\:secure').is(':checked');});
+                    $('#mail\\:password')
+                        .prop('disabled', function() { return !$('#mail\\:secure').is(':checked');});
 
                     $('#option-button').on('click', function() {
                         window.location.replace('/');
