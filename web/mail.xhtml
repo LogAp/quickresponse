@@ -1,0 +1,72 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<h:body>
+    <ui:composition template="templates/layout.xhtml">
+        <ui:define name="content">
+            <div class="ui middle aligned center aligned grid">
+                <div class="column">
+                    <h1 class="ui header">Quick Response</h1>
+                    <h:form class="ui large form">
+                        <div class="ui stacked segment">
+                            <div class="field">
+                                <div class="ui left icon action input">
+                                    <i class="at link icon" id="option-button"/>
+                                    <h:inputText value="#{codeController.mailRequest.address}" a:placeholder="Type the e-mail address..." a:type="email" tabindex="1"/>
+                                    <p:commandButton styleClass="ui blue small button" action="#{codeController.storeMail}" ajax="false" value="Encode" tabindex="4"/>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <div class="ui left icon input">
+                                    <i class="quote left icon"/>
+                                    <h:inputText value="#{codeController.mailRequest.subject}" a:placeholder="Type the subject..." tabindex="2"/>
+                                </div>
+                            </div>
+                            <div class="field">
+                                <h:inputTextarea value="#{codeController.mailRequest.body}" a:placeholder="Type the body..." tabindex="3"/>
+                            </div>
+                            <div class="field">
+                                <div class="ui right labeled input">
+                                    <h:inputSecret value="#{codeController.codeRequest.password}" id="password" a:placeholder="Type your password..."/>
+                                    <div class="ui label">
+                                        <div class="ui toggle checkbox">
+                                            <h:selectBooleanCheckbox id="secure" value="#{codeController.codeRequest.secure}" onchange="togglePassword();"/>
+                                            <h:outputLabel for="secure" style="cursor: pointer;">
+                                                <i class="lock icon"></i>
+                                            </h:outputLabel>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </h:form>
+                </div>
+            </div>
+        </ui:define>
+
+        <ui:define name="scripts">
+            <script type="application/javascript">
+                function togglePassword() {
+                    $('#j_idt10\\:password')
+                        .prop('disabled', function(i, v) { return !v;});
+                }
+
+                $(document).ready(function () {
+                    $('#j_idt10\\:password')
+                        .prop('disabled', function() { return !$('#j_idt10\\:secure').is(':checked');});
+
+                    $('#option-button').on('click', function() {
+                        window.location.replace('/');
+                    });
+                });
+            </script>
+        </ui:define>
+    </ui:composition>
+</h:body>
+</html>

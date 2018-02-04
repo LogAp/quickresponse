@@ -1,0 +1,27 @@
+<pretty-config xmlns="http://ocpsoft.org/schema/rewrite-config-prettyfaces"
+               xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+               xsi:schemaLocation="http://ocpsoft.org/schema/rewrite-config-prettyfaces
+                      http://ocpsoft.org/xml/ns/prettyfaces/rewrite-config-prettyfaces.xsd">
+
+    <url-mapping id="view-home">
+        <pattern value="/" />
+        <view-id value="/index.xhtml" />
+    </url-mapping>
+
+    <url-mapping id="view-mail">
+        <pattern value="/mail"/>
+        <view-id value="/mail.xhtml"/>
+    </url-mapping>
+
+    <url-mapping id="view-result">
+        <pattern value="/result/#{uuid : codeController.uuid}"/>
+        <view-id value="/result.xhtml"/>
+    </url-mapping>
+
+    <url-mapping id="view-unlock">
+        <pattern value="/unlock"/>
+        <query-param name="id">#{codeController.uuid}</query-param>
+        <view-id value="/unlock.xhtml"/>
+    </url-mapping>
+
+</pretty-config>

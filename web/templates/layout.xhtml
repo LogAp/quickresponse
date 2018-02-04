@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+    <h:head>
+        <title><ui:insert name="title"/>Quick Response</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <link rel="shortcut icon" type="image/x-icon" href="#{resource['images/favicon.ico']}"/>
+        <!-- Third Party -->
+        <h:outputStylesheet library="css" name="icons.css"/>
+        <h:outputStylesheet library="webjars" name="Semantic-UI/2.2.10/semantic.min.css"/>
+
+        <!-- First Party -->
+        <h:outputStylesheet library="css" name="main.css"/>
+    </h:head>
+    <h:body>
+        <ui:insert name="content">
+        </ui:insert>
+        <h:outputScript library="webjars" name="jquery/3.3.1/jquery.min.js"/>
+        <h:outputScript library="webjars" name="Semantic-UI/2.2.10/semantic.min.js"/>
+        <ui:insert name="scripts">
+        </ui:insert>
+    </h:body>
+</html>
