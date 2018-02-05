@@ -9,6 +9,12 @@
     <version>1.0.0</version>
     <packaging>war</packaging>
 
+    <scm>
+        <url>https://github.com/JayBIOS/quickresponse</url>
+        <connection>scm:git:git://github.com/JayBIOS/quickresponse.git</connection>
+        <developerConnection>scm:git:git@github.com:JayBIOS/quickresponse.git</developerConnection>
+    </scm>
+
     <repositories>
         <repository>
             <id>jitpack.io</id>
@@ -143,6 +149,23 @@
                 </configuration>
             </plugin>
             <plugin>
+                <groupId>org.codehaus.mojo</groupId>
+                <artifactId>buildnumber-maven-plugin</artifactId>
+                <version>1.4</version>
+                <executions>
+                    <execution>
+                        <phase>validate</phase>
+                        <goals>
+                            <goal>create</goal>
+                        </goals>
+                    </execution>
+                </executions>
+                <configuration>
+                    <doCheck>false</doCheck>
+                    <doUpdate>false</doUpdate>
+                </configuration>
+            </plugin>
+            <plugin>
                 <artifactId>maven-war-plugin</artifactId>
                 <version>3.1.0</version>
                 <configuration>
@@ -153,6 +176,9 @@
                             <addDefaultImplementationEntries>true</addDefaultImplementationEntries>
                             <addDefaultSpecificationEntries>true</addDefaultSpecificationEntries>
                         </manifest>
+                        <manifestEntries>
+                            <Commit-Hash>${buildNumber}</Commit-Hash>
+                        </manifestEntries>
                     </archive>
                     <archiveClasses>true</archiveClasses>
                 </configuration>

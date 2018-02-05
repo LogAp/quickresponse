@@ -25,13 +25,17 @@ public class ApplicationController {
 
     public boolean getDebug() {
         String debug = System.getenv("DEBUG");
-        if (debug == null) {
-            return false;
-        }
-        return debug.equals("true");
+        return debug != null && debug.equals("true");
+    }
+
+    private boolean getStaging() {
+        String staging = System.getenv("STAGING");
+        return staging != null && staging.equals("true");
     }
 
     public String getVersion() {
-        return manifest.getMainAttributes().getValue("Implementation-Version");
+        String releaseVersion = manifest.getMainAttributes().getValue("Implementation-Version");
+        String commitHash = manifest.getMainAttributes().getValue("Commit-Hash");
+        return getStaging() ? commitHash : releaseVersion;
     }
 }
