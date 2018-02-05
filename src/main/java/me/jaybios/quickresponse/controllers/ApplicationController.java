@@ -1,13 +1,15 @@
 package me.jaybios.quickresponse.controllers;
 
 import javax.annotation.PostConstruct;
+import javax.faces.bean.ApplicationScoped;
 import javax.faces.bean.ManagedBean;
 import javax.faces.context.FacesContext;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.jar.Manifest;
 
-@ManagedBean
+@ManagedBean(eager = true)
+@ApplicationScoped
 public class ApplicationController {
     private Manifest manifest = null;
 

@@ -9,9 +9,11 @@ import me.jaybios.quickresponse.models.SecureCode;
 import me.jaybios.quickresponse.services.ResourceService;
 
 import javax.faces.bean.ManagedBean;
+import javax.faces.bean.RequestScoped;
 import java.util.UUID;
 
 @ManagedBean
+@RequestScoped
 public class CodeController {
     private String uuid;
     private CodeRequest codeRequest = new CodeRequest();
