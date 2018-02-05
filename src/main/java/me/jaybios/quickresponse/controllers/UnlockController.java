@@ -52,10 +52,18 @@ public class UnlockController {
         return null;
     }
 
-    public void unlock() throws IOException {
+    public Boolean getInvalid() {
+        ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
+        return (Boolean) externalContext.getFlash().getOrDefault("invalid", false);
+    }
+
+    public String unlock() throws IOException {
+        ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
         if (code.checkPassword(password)) {
-            ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
             externalContext.redirect(code.getUri());
         }
+        externalContext.getFlash().put("invalid", true);
+        externalContext.getFlash().setKeepMessages(true);
+        return "pretty";
     }
 }

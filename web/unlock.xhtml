@@ -16,7 +16,7 @@
                 <h:form class="ui large form">
                     <div class="ui stacked segment">
                         <div class="field">
-                            <div class="ui left icon action input">
+                            <div class="ui left icon action input #{unlockController.invalid ? 'error' : ''}">
                                 <i class="lock icon"/>
                                 <h:inputSecret value="#{unlockController.password}" a:placeholder="Type your password..."/>
                                 <p:commandButton styleClass="ui blue small button" action="#{unlockController.unlock}" ajax="false" value="Unlock"/>
@@ -24,6 +24,9 @@
                         </div>
                     </div>
                 </h:form>
+                <h:panelGroup styleClass="ui negative message" layout="block" rendered="#{unlockController.invalid}">
+                    <p>Wrong password!</p>
+                </h:panelGroup>
             </div>
         </ui:define>
     </ui:composition>
