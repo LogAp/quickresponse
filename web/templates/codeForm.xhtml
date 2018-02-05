@@ -1,0 +1,68 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+<h:body>
+    <ui:composition template="layout.xhtml">
+        <ui:define name="content">
+            <div class="tight column">
+                <ui:param name="errorMessages" value="#{facesContext.getMessageList()}"/>
+                <h1 class="ui header">Quick Response</h1>
+                <h:form id="code" class="ui large form">
+                    <div class="ui raised left aligned segment">
+                        <div class="ui bottom right attached label">
+                            <a href="https://github.com/JayBIOS/quickresponse">
+                                <i class="github icon"></i> <h:outputText value="#{applicationController.version}"/>
+                            </a>
+                        </div>
+                        <ui:insert name="codeForm:fields">
+                        </ui:insert>
+                        <div class="field">
+                            <div class="ui right labeled input">
+                                <h:inputSecret value="#{codeController.codeRequest.password}" id="password" a:placeholder="Type your password..."/>
+                                <div class="ui label">
+                                    <div class="ui toggle checkbox">
+                                        <h:selectBooleanCheckbox id="secure" value="#{codeController.codeRequest.secure}" onchange="togglePassword();"/>
+                                        <h:outputLabel for="secure" style="cursor: pointer;">
+                                            <i class="lock icon"></i>
+                                        </h:outputLabel>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </h:form>
+                <h:panelGroup layout="block" rendered="#{not empty errorMessages}" styleClass="ui left aligned error message">
+                    <div class="header">
+                        Error while encoding; Please review and correct listed errors.
+                    </div>
+                    <h:messages globalOnly="false" styleClass="list"/>
+                </h:panelGroup>
+            </div>
+        </ui:define>
+
+        <ui:define name="scripts">
+            <script type="application/javascript">
+                function togglePassword() {
+                    $('#code\\:password')
+                        .prop('disabled', function(i, v) { return !v;});
+                }
+
+                $(document).ready(function () {
+                    $('#code\\:password')
+                        .prop('disabled', function(i, v) { return !$('#code\\:secure').is(':checked');});
+                });
+
+                $('#option-button').on('click', function(e) {
+                    window.location.replace($(this).hasClass('world') ? '/mail' : '/');
+                });
+            </script>
+        </ui:define>
+    </ui:composition>
+</h:body>
+</html>

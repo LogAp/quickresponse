@@ -4,7 +4,7 @@ All notable changes to this project will be documented in this file.
 The format is based on [Keep a Changelog](http://keepachangelog.com/en/1.0.0/)
 and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.html).
 
-## Unreleased
+## 1.0.0
 
 ### Added
 - Project initialized with Hibernate + JPA, JSF and PrimeFaces.
@@ -25,3 +25,4 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Mail view: Same as the Index view, but as a aux for "mailto" uri generation.
 - Result view: Where the QRCode is shown.
 - Unlock view: Where the user will type the SecureCode password to unlock the redirect.
+- 404 and 500 error handlers.

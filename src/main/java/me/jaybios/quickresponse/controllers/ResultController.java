@@ -25,10 +25,19 @@ public class ResultController {
 
     private String qrCode;
 
-    @PostConstruct
-    public void init() {
+    public String findCode() {
         ResourceService<Code, UUID> service = new ResourceService<Code, UUID>(new CodeDAO());
-        code = service.findById(UUID.fromString(uuid));
+        try {
+            code = service.findById(UUID.fromString(uuid));
+        } catch(IllegalArgumentException e) {
+            return "pretty:view-home";
+        }
+
+        if (code == null) {
+            return "pretty:view-home";
+        }
+
+        return null;
     }
 
     public String getUuid() {

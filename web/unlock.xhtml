@@ -11,21 +11,19 @@
     <ui:composition template="templates/layout.xhtml">
         <ui:define name="title">Unlock | </ui:define>
         <ui:define name="content">
-            <div class="ui middle aligned center aligned grid">
-                <div class="column">
-                    <h1 class="ui header">Quick Response</h1>
-                    <h:form class="ui large form">
-                        <div class="ui stacked segment">
-                            <div class="field">
-                                <div class="ui left icon action input">
-                                    <i class="lock icon"/>
-                                    <h:inputSecret value="#{unlockController.password}" a:placeholder="Type your password..."/>
-                                    <p:commandButton styleClass="ui blue small button" action="#{unlockController.unlock}" ajax="false" value="Unlock"/>
-                                </div>
+            <div class="tight column">
+                <h1 class="ui header">Quick Response</h1>
+                <h:form class="ui large form">
+                    <div class="ui stacked segment">
+                        <div class="field">
+                            <div class="ui left icon action input">
+                                <i class="lock icon"/>
+                                <h:inputSecret value="#{unlockController.password}" a:placeholder="Type your password..."/>
+                                <p:commandButton styleClass="ui blue small button" action="#{unlockController.unlock}" ajax="false" value="Unlock"/>
                             </div>
                         </div>
-                    </h:form>
-                </div>
+                    </div>
+                </h:form>
             </div>
         </ui:define>
     </ui:composition>

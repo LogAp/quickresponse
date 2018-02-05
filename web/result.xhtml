@@ -11,23 +11,21 @@
     <ui:composition template="templates/layout.xhtml">
         <ui:define name="title">Generated Code | </ui:define>
         <ui:define name="content">
-            <div class="ui middle aligned center aligned grid">
-                <div class="column">
-                    <h1 class="ui header">Quick Response</h1>
-                    <h:form>
-                        <div class="ui centered card">
-                            <div class="image">
-                                <img src="data:image/png;base64,#{resultController.qrCode}" alt="QR Code"/>
-                            </div>
-                            <div class="extra content">
-                                <div class="ui two buttons">
-                                        <h:commandButton styleClass="ui button" action="#{resultController.download}" value="Download"/>
-                                        <h:button styleClass="ui black button" outcome="pretty:view-home" value="Return"/>
-                                </div>
+            <div class="tight column">
+                <h1 class="ui header">Quick Response</h1>
+                <h:form>
+                    <div class="ui centered card">
+                        <div class="image">
+                            <img src="data:image/png;base64,#{resultController.qrCode}" alt="QR Code"/>
+                        </div>
+                        <div class="extra content">
+                            <div class="ui two buttons">
+                                    <h:commandButton styleClass="ui button" action="#{resultController.download}" value="Download"/>
+                                    <h:button styleClass="ui black button" outcome="pretty:view-home" value="Return"/>
                             </div>
                         </div>
-                    </h:form>
-                </div>
+                    </div>
+                </h:form>
             </div>
         </ui:define>
     </ui:composition>

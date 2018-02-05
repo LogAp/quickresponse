@@ -15,6 +15,8 @@ import java.util.UUID;
 @ManagedBean
 @RequestScoped
 public class UnlockController {
+    private SecureCode code;
+
     @ManagedProperty(value = "#{param.id}")
     private String uuid;
     private String password;
@@ -35,9 +37,22 @@ public class UnlockController {
         this.password = password;
     }
 
-    public void unlock() throws IOException {
+    public String findCode() {
         ResourceService<SecureCode, UUID> service = new ResourceService<SecureCode, UUID>(new SecureCodeDAO());
-        SecureCode code = service.findById(UUID.fromString(uuid));
+        try {
+            code = service.findById(UUID.fromString(uuid));
+        } catch(IllegalArgumentException e) {
+            return "pretty:view-home";
+        }
+
+        if (code == null) {
+            return "pretty:view-home";
+        }
+
+        return null;
+    }
+
+    public void unlock() throws IOException {
         if (code.checkPassword(password)) {
             ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
             externalContext.redirect(code.getUri());

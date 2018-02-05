@@ -18,8 +18,12 @@
         <h:outputStylesheet library="css" name="main.css"/>
     </h:head>
     <h:body>
-        <ui:insert name="content">
-        </ui:insert>
+        <div class="ui middle aligned center aligned grid">
+            <div class="row">
+                <ui:insert name="content">
+                </ui:insert>
+            </div>
+        </div>
         <h:outputScript library="webjars" name="jquery/3.3.1/jquery.min.js"/>
         <h:outputScript library="webjars" name="Semantic-UI/2.2.10/semantic.min.js"/>
         <ui:insert name="scripts">

@@ -8,64 +8,26 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
 <h:body>
-    <ui:composition template="templates/layout.xhtml">
-        <ui:define name="content">
-            <div class="ui middle aligned center aligned grid">
-                <div class="column">
-                    <h1 class="ui header">Quick Response</h1>
-                    <h:form id="mail" class="ui large form">
-                        <div class="ui stacked segment">
-                            <div class="field">
-                                <div class="ui left icon action input">
-                                    <i class="at link icon" id="option-button"/>
-                                    <h:inputText value="#{codeController.mailRequest.address}" a:placeholder="Type the e-mail address..." a:type="email" tabindex="1"/>
-                                    <p:commandButton styleClass="ui blue small button" action="#{codeController.storeMail}" ajax="false" value="Encode" tabindex="4"/>
-                                </div>
-                            </div>
-                            <div class="field">
-                                <div class="ui left icon input">
-                                    <i class="quote left icon"/>
-                                    <h:inputText value="#{codeController.mailRequest.subject}" a:placeholder="Type the subject..." tabindex="2"/>
-                                </div>
-                            </div>
-                            <div class="field">
-                                <h:inputTextarea value="#{codeController.mailRequest.body}" a:placeholder="Type the body..." tabindex="3"/>
-                            </div>
-                            <div class="field">
-                                <div class="ui right labeled input">
-                                    <h:inputSecret value="#{codeController.codeRequest.password}" id="password" a:placeholder="Type your password..."/>
-                                    <div class="ui label">
-                                        <div class="ui toggle checkbox">
-                                            <h:selectBooleanCheckbox id="secure" value="#{codeController.codeRequest.secure}" onchange="togglePassword();"/>
-                                            <h:outputLabel for="secure" style="cursor: pointer;">
-                                                <i class="lock icon"></i>
-                                            </h:outputLabel>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    </h:form>
+    <ui:composition template="templates/codeForm.xhtml">
+        <ui:define name="codeForm:fields">
+            <div class="field">
+                <div class="ui left icon action input #{not empty facesContext.getMessageList('code:email') ? 'error' : ''}">
+                    <i class="at link icon" id="option-button"/>
+                    <h:inputText id="email" value="#{codeController.mailRequest.address}"
+                                 a:placeholder="Type the e-mail address..."
+                                 a:type="email" tabindex="1" required="true" label="E-mail Address"/>
+                    <p:commandButton styleClass="ui blue small button" action="#{codeController.storeMail}" ajax="false" value="Encode" tabindex="4"/>
                 </div>
             </div>
-        </ui:define>
-
-        <ui:define name="scripts">
-            <script type="application/javascript">
-                function togglePassword() {
-                    $('#mail\\:password')
-                        .prop('disabled', function(i, v) { return !v;});
-                }
-
-                $(document).ready(function () {
-                    $('#mail\\:password')
-                        .prop('disabled', function() { return !$('#mail\\:secure').is(':checked');});
-
-                    $('#option-button').on('click', function() {
-                        window.location.replace('/');
-                    });
-                });
-            </script>
+            <div class="field">
+                <div class="ui left icon input">
+                    <i class="quote left icon"/>
+                    <h:inputText value="#{codeController.mailRequest.subject}" a:placeholder="Type the subject..." tabindex="2"/>
+                </div>
+            </div>
+            <div class="field">
+                <h:inputTextarea value="#{codeController.mailRequest.body}" a:placeholder="Type the body..." tabindex="3"/>
+            </div>
         </ui:define>
     </ui:composition>
 </h:body>

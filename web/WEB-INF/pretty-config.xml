@@ -16,12 +16,14 @@
     <url-mapping id="view-result">
         <pattern value="/result/#{uuid : codeController.uuid}"/>
         <view-id value="/result.xhtml"/>
+        <action>#{resultController.findCode}</action>
     </url-mapping>
 
     <url-mapping id="view-unlock">
         <pattern value="/unlock"/>
         <query-param name="id">#{codeController.uuid}</query-param>
         <view-id value="/unlock.xhtml"/>
+        <action>#{unlockController.findCode}</action>
     </url-mapping>
 
 </pretty-config>
