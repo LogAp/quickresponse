@@ -16,7 +16,7 @@
                     <h:inputText id="email" value="#{codeController.mailRequest.address}"
                                  a:placeholder="Type the e-mail address..."
                                  a:type="email" tabindex="1" required="true" label="E-mail Address"/>
-                    <p:commandButton styleClass="ui blue small button" action="#{codeController.storeMail}" ajax="false" value="Encode" tabindex="4"/>
+                    <p:commandButton id="encode" styleClass="ui blue small button" action="#{codeController.storeMail}" ajax="false" value="Encode" tabindex="4"/>
                 </div>
             </div>
             <div class="field">

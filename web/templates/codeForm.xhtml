@@ -13,11 +13,11 @@
             <div class="tight column">
                 <ui:param name="errorMessages" value="#{facesContext.getMessageList()}"/>
                 <h1 class="ui header">Quick Response</h1>
-                <h:form id="code" class="ui large form">
+                <h:form id="code" class="ui large form" onsubmit="disableEncode()">
                     <div class="ui raised left aligned segment">
                         <div class="ui bottom right attached label">
                             <a href="https://github.com/JayBIOS/quickresponse">
-                                <i class="github icon"></i> <h:outputText value="#{applicationController.version}"/>
+                                <i class="github icon"/> <h:outputText value="#{applicationController.version}"/>
                             </a>
                         </div>
                         <ui:insert name="codeForm:fields">
@@ -29,7 +29,7 @@
                                     <div class="ui toggle checkbox">
                                         <h:selectBooleanCheckbox id="secure" value="#{codeController.codeRequest.secure}" onchange="togglePassword();"/>
                                         <h:outputLabel for="secure" style="cursor: pointer;">
-                                            <i class="lock icon"></i>
+                                            <i class="lock icon"/>
                                         </h:outputLabel>
                                     </div>
                                 </div>
@@ -53,13 +53,17 @@
                         .prop('disabled', function(i, v) { return !v;});
                 }
 
+                function disableEncode() {
+                    $('#code\\:encode').addClass('loading disabled');
+                }
+
                 $(document).ready(function () {
                     $('#code\\:password')
                         .prop('disabled', function(i, v) { return !$('#code\\:secure').is(':checked');});
-                });
 
-                $('#option-button').on('click', function(e) {
-                    window.location.replace($(this).hasClass('world') ? '/mail' : '/');
+                    $('#option-button').on('click', function(e) {
+                        window.location.replace($(this).hasClass('world') ? '/mail' : '/');
+                    });
                 });
             </script>
         </ui:define>
