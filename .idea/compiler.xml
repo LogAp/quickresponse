@@ -21,8 +21,8 @@
         <module name="quickresponse" />
       </profile>
     </annotationProcessing>
-    <bytecodeTargetLevel target="8">
-      <module name="quickresponse" target="1.5" />
+    <bytecodeTargetLevel target="1.8">
+      <module name="quickresponse" target="1.8" />
     </bytecodeTargetLevel>
   </component>
 </project>
