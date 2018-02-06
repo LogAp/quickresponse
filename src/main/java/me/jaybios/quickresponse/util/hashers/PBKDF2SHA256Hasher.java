@@ -10,24 +10,22 @@ import java.security.spec.KeySpec;
 import java.util.Base64;
 
 public class PBKDF2SHA256Hasher {
-    public final Integer DEFAULT_INTERATIONS = 1000;
-    public final String ALGORITHM = "pbkdf2_sha256";
-
-    public String getEncodedHash(String password, String salt, int iterations) {
-        SecretKeyFactory keyFactory = null;
+    private String getEncodedHash(String password, String salt, int iterations) {
+        SecretKeyFactory keyFactory;
         try {
             keyFactory = SecretKeyFactory.getInstance("PBKDF2WithHmacSHA256");
         } catch (NoSuchAlgorithmException e) {
             System.err.println("Could NOT retrieve PBKDF2WithHmacSHA256 algorithm");
-            System.exit(1);
+            return null;
         }
         KeySpec keySpec = new PBEKeySpec(password.toCharArray(), salt.getBytes(Charset.forName("UTF-8")), iterations, 256);
-        SecretKey secret = null;
+        SecretKey secret;
         try {
             secret = keyFactory.generateSecret(keySpec);
         } catch (InvalidKeySpecException e) {
             System.err.println("Could NOT generate secret key");
             e.printStackTrace();
+            return null;
         }
 
         byte[] rawHash = secret.getEncoded();
@@ -36,13 +34,13 @@ public class PBKDF2SHA256Hasher {
         return new String(hashBase64);
     }
 
-    public String encode(String password, String salt, int iterations) {
+    private String encode(String password, String salt, int iterations) {
         String hash = getEncodedHash(password, salt, iterations);
-        return String.format("%s$%d$%s$%s", ALGORITHM, iterations, salt, hash);
+        return String.format("%s$%d$%s$%s", "pbkdf2_sha256", iterations, salt, hash);
     }
 
     public String encode(String password, String salt) {
-        return this.encode(password, salt, this.DEFAULT_INTERATIONS);
+        return this.encode(password, salt, 1000);
     }
 
     public boolean checkPassword(String password, String hashedPassword) {

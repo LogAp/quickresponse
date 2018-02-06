@@ -38,18 +38,13 @@ public class UnlockController {
     }
 
     public String findCode() {
-        ResourceService<SecureCode, UUID> service = new ResourceService<SecureCode, UUID>(new SecureCodeDAO());
+        ResourceService<SecureCode, UUID> service = new ResourceService<>(new SecureCodeDAO());
         try {
             code = service.findById(UUID.fromString(uuid));
-        } catch(IllegalArgumentException e) {
+        } catch (IllegalArgumentException | NullPointerException e) {
             return "pretty:view-home";
         }
-
-        if (code == null) {
-            return "pretty:view-home";
-        }
-
-        return null;
+        return code == null ? "pretty:view-home" : null;
     }
 
     public Boolean getInvalid() {

@@ -42,7 +42,7 @@ public class SecureCode extends Code {
 
     @Override
     public QRCode generateQR() {
-        String scheme = System.getenv("APPLICATION_SCHEME");;
+        String scheme = System.getenv("APPLICATION_SCHEME");
 
         if (scheme == null)
             scheme = "http";

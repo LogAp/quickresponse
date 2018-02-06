@@ -5,7 +5,6 @@ import me.jaybios.quickresponse.models.Code;
 import me.jaybios.quickresponse.services.ResourceService;
 import net.glxn.qrgen.javase.QRCode;
 
-import javax.annotation.PostConstruct;
 import javax.faces.bean.ManagedBean;
 import javax.faces.bean.ManagedProperty;
 import javax.faces.bean.RequestScoped;
@@ -26,7 +25,7 @@ public class ResultController {
     private String qrCode;
 
     public String findCode() {
-        ResourceService<Code, UUID> service = new ResourceService<Code, UUID>(new CodeDAO());
+        ResourceService<Code, UUID> service = new ResourceService<>(new CodeDAO());
         try {
             code = service.findById(UUID.fromString(uuid));
         } catch(IllegalArgumentException e) {

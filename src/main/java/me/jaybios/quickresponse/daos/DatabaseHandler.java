@@ -6,7 +6,7 @@ import javax.persistence.EntityManager;
 import javax.persistence.EntityTransaction;
 import java.io.Serializable;
 
-public abstract class DatabaseHandler<T, ID extends Serializable> implements DAO<T, ID> {
+public abstract class DatabaseHandler<T, I extends Serializable> implements DAO<T, I> {
     private EntityManager currentSession;
     private EntityTransaction currentTransaction;
 

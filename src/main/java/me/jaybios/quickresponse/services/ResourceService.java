@@ -5,10 +5,10 @@ import me.jaybios.quickresponse.daos.DatabaseHandler;
 import java.io.Serializable;
 import java.util.List;
 
-public class ResourceService<T, ID extends Serializable> {
-    private DatabaseHandler<T, ID> dao;
+public class ResourceService<T, I extends Serializable> {
+    private DatabaseHandler<T, I> dao;
 
-    public ResourceService(DatabaseHandler<T, ID> dao) {
+    public ResourceService(DatabaseHandler<T, I> dao) {
         this.dao = dao;
     }
 
@@ -24,14 +24,14 @@ public class ResourceService<T, ID extends Serializable> {
         dao.closeSessionAndCommit();
     }
 
-    public void deleteById(ID id) {
+    public void deleteById(I id) {
         dao.openSessionWithTransaction();
         T code = dao.findByID(id);
         dao.delete(code);
         dao.closeSessionAndCommit();
     }
 
-    public T findById(ID id) {
+    public T findById(I id) {
         dao.openSession();
         T code = dao.findByID(id);
         dao.closeSession();
