@@ -56,6 +56,7 @@ public class UnlockController {
         ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
         if (code.checkPassword(password)) {
             externalContext.redirect(code.getUri());
+            return null;
         }
         externalContext.getFlash().put("invalid", true);
         externalContext.getFlash().setKeepMessages(true);
