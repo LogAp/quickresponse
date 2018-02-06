@@ -40,6 +40,6 @@ public class Code {
 
     public String generateImage() {
         byte[] qrcode = generateQR().withSize(500, 500).stream().toByteArray();
-        return Base64.encodeBase64String(qrcode);
+        return String.format("data:image/png;base64,%s", Base64.encodeBase64String(qrcode));
     }
 }

@@ -9,19 +9,19 @@
       xmlns:p="http://primefaces.org/ui">
 <h:body>
     <ui:composition template="templates/layout.xhtml">
-        <ui:define name="title">Generated Code | </ui:define>
+        <ui:define name="title"><h:outputText value="#{dialog['titles.result']}"/> | </ui:define>
         <ui:define name="content">
             <div class="tight column">
                 <h1 class="ui header">Quick Response</h1>
                 <h:form>
                     <div class="ui centered card">
                         <div class="image">
-                            <img src="data:image/png;base64,#{resultController.qrCode}" alt="QR Code"/>
+                            <img src="#{resultController.qrCode}" alt="QR Code"/>
                         </div>
                         <div class="extra content">
                             <div class="ui two buttons">
-                                    <h:commandButton styleClass="ui button" action="#{resultController.download}" value="Download"/>
-                                    <h:button styleClass="ui black button" outcome="pretty:view-home" value="Return"/>
+                                    <h:commandButton styleClass="ui button" action="#{resultController.download}" value="#{dialog['buttons.download']}"/>
+                                    <h:button styleClass="ui black button" outcome="pretty:view-home" value="#{dialog['buttons.return']}"/>
                             </div>
                         </div>
                     </div>
