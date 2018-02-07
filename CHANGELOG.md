@@ -6,9 +6,17 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 
 ## [Unreleased]
 
+## [1.1.0]
+
+### Added
+- Wrong password flash response to UnlockController.
+- Page header menu.
+- i18n support.
+
 ### Changed
 - ApplicationController to a sigleton (ApplicationScoped), with eager behavior.
-- Addded wrong password flash response to UnlockController.
+- Disabled browser cache.
+- Restructured page layout.
 
 ## 1.0.0
 
@@ -33,4 +41,5 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - Unlock view: Where the user will type the SecureCode password to unlock the redirect.
 - 404 and 500 error handlers.
 
-[Unreleased]: https://github.com/JayBIOS/quickresponse/compare/v1.0.0...HEAD
+[Unreleased]: https://github.com/JayBIOS/quickresponse/compare/v1.1.0...HEAD
+[1.1.0]: https://github.com/JayBIOS/quickresponse/compare/v1.0.0...v1.1.0
