@@ -28,18 +28,4 @@ public class I18nController {
         locale = (Locale) e.getNewValue();
         FacesContext.getCurrentInstance().getViewRoot().setLocale(locale);
     }
-
-    public List<SelectItem> getSupportedLocales() {
-        List<SelectItem> supportedLocales = new ArrayList<>();
-        FacesContext
-                .getCurrentInstance()
-                .getApplication()
-                .getSupportedLocales().forEachRemaining(locale -> supportedLocales.add(convertLocaleToSelectItem(locale)));
-        return supportedLocales;
-    }
-
-    private SelectItem convertLocaleToSelectItem(Locale locale) {
-        String label = WordUtils.capitalize(locale.getDisplayName(this.locale));
-        return new SelectItem(locale, label);
-    }
 }

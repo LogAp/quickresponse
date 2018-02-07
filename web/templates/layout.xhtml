@@ -35,7 +35,7 @@
                                     <h:selectOneMenu id="language-dropdown" value="#{i18nController.locale}"
                                                      onchange="submit()" converter="localeConverter"
                                                      valueChangeListener="#{i18nController.localeChanged}">
-                                        <f:selectItems value="#{i18nController.supportedLocales}"/>
+                                        <f:selectItems value="#{applicationController.supportedLocales}"/>
                                     </h:selectOneMenu>
                                 </h:panelGroup>
                             </h:form>
