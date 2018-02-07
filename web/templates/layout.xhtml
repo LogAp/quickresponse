@@ -7,6 +7,7 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
       xmlns:p="http://primefaces.org/ui">
+<f:view locale="#{i18nController.locale}">
     <h:head>
         <title><ui:insert name="title"/>Quick Response</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
@@ -26,26 +27,18 @@
                     <div class="column">
                         <div class="ui left aligned menu">
                             <h:link styleClass="header item" outcome="pretty:view-home" value="Quick Response"/>
-                            <h:panelGroup layout="block" id="language-dropdown" class="ui dropdown item">
-                                <div class="text">
-                                    <i class="world icon"/>
-                                    <h:outputText value="#{dialog['buttons.language']}"/>
-                                </div>
-                                <h:panelGroup layout="block" class="icon menu">
-                                    <h:panelGroup layout="block" class="item">
-                                        <f:passThroughAttribute name="data-value" value="pt"/>
-                                        <f:passThroughAttribute name="data-name" value="#{dialog['languages.portuguese']}"/>
-                                        <i class="br flag"/>
-                                        <h:outputText value="#{dialog['languages.portuguese']}"/>
+                            <h:form id="i18n">
+                                <h:panelGroup layout="block" class="ui dropdown item">
+                                    <h:panelGroup layout="block" styleClass="text">
+                                        <h:outputText value="#{dialog['buttons.language']}"/>
                                     </h:panelGroup>
-                                    <h:panelGroup layout="block" class="item">
-                                        <f:passThroughAttribute name="data-value" value="en"/>
-                                        <f:passThroughAttribute name="data-name" value="#{dialog['languages.english']}"/>
-                                        <i class="us flag"/>
-                                        <h:outputText value="#{dialog['languages.english']}"/>
-                                    </h:panelGroup>
+                                    <h:selectOneMenu id="language-dropdown" value="#{i18nController.locale}"
+                                                     onchange="submit()" converter="localeConverter"
+                                                     valueChangeListener="#{i18nController.localeChanged}">
+                                        <f:selectItems value="#{i18nController.supportedLocales}"/>
+                                    </h:selectOneMenu>
                                 </h:panelGroup>
-                            </h:panelGroup>
+                            </h:form>
                             <ui:insert name="header">
                             </ui:insert>
                         </div>
@@ -64,10 +57,11 @@
         <!-- First Party -->
         <script type="application/javascript">
             $(document).ready(function () {
-                $('#language-dropdown').dropdown();
+                $('#i18n\\:language-dropdown').dropdown();
             });
         </script>
         <ui:insert name="scripts">
         </ui:insert>
     </h:body>
+</f:view>
 </html>

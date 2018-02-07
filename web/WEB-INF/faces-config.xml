@@ -5,8 +5,9 @@
               version="2.0">
     <application>
         <locale-config>
-            <default-locale>en</default-locale>
-            <supported-locale>pt</supported-locale>
+            <default-locale>en-US</default-locale>
+            <supported-locale>pt-BR</supported-locale>
+            <supported-locale>en-US</supported-locale>
         </locale-config>
         <resource-bundle>
             <base-name>dialog</base-name>
