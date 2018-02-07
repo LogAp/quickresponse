@@ -5,27 +5,68 @@
       xmlns:h="http://xmlns.jcp.org/jsf/html"
       xmlns:ui="http://java.sun.com/jsf/facelets"
       xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
       xmlns:p="http://primefaces.org/ui">
     <h:head>
         <title><ui:insert name="title"/>Quick Response</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <link rel="shortcut icon" type="image/x-icon" href="#{resource['images/favicon.ico']}"/>
         <!-- Third Party -->
-        <h:outputStylesheet library="css" name="icons.css"/>
         <h:outputStylesheet library="webjars" name="Semantic-UI/2.2.10/semantic.min.css"/>
+        <h:outputStylesheet library="css" name="override.css"/>
 
         <!-- First Party -->
         <h:outputStylesheet library="css" name="main.css"/>
     </h:head>
     <h:body>
-        <div class="ui middle aligned center aligned grid">
-            <div class="row">
-                <ui:insert name="content">
-                </ui:insert>
+        <div id="main-grid" class="ui middle aligned center aligned container grid">
+            <div class="column">
+                <div class="row">
+                    <div class="column">
+                        <div class="ui left aligned menu">
+                            <h:link styleClass="header item" outcome="pretty:view-home" value="Quick Response"/>
+                            <h:panelGroup layout="block" id="language-dropdown" class="ui dropdown item">
+                                <div class="text">
+                                    <i class="world icon"/>
+                                    <h:outputText value="#{dialog['buttons.language']}"/>
+                                </div>
+                                <h:panelGroup layout="block" class="icon menu">
+                                    <h:panelGroup layout="block" class="item">
+                                        <f:passThroughAttribute name="data-value" value="pt"/>
+                                        <f:passThroughAttribute name="data-name" value="#{dialog['languages.portuguese']}"/>
+                                        <i class="br flag"/>
+                                        <h:outputText value="#{dialog['languages.portuguese']}"/>
+                                    </h:panelGroup>
+                                    <h:panelGroup layout="block" class="item">
+                                        <f:passThroughAttribute name="data-value" value="en"/>
+                                        <f:passThroughAttribute name="data-name" value="#{dialog['languages.english']}"/>
+                                        <i class="us flag"/>
+                                        <h:outputText value="#{dialog['languages.english']}"/>
+                                    </h:panelGroup>
+                                </h:panelGroup>
+                            </h:panelGroup>
+                            <ui:insert name="header">
+                            </ui:insert>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <ui:insert name="content">
+                    </ui:insert>
+                </div>
             </div>
         </div>
+        <!-- Third Party -->
         <h:outputScript library="webjars" name="jquery/3.3.1/jquery.min.js"/>
         <h:outputScript library="webjars" name="Semantic-UI/2.2.10/semantic.min.js"/>
+
+        <!-- First Party -->
+        <script type="application/javascript">
+            $(document).ready(function () {
+                $('#language-dropdown').dropdown();
+            });
+        </script>
         <ui:insert name="scripts">
         </ui:insert>
     </h:body>

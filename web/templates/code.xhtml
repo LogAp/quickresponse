@@ -11,8 +11,7 @@
     <ui:composition template="layout.xhtml">
         <ui:param name="hasErrorMessages" value="#{not empty facesContext.getMessageList()}"/>
         <ui:define name="content">
-            <div class="tight column">
-                <h1 class="ui header">Quick Response</h1>
+            <div class="column">
                 <h:form id="code" class="ui large form" onsubmit="disableEncode()">
                     <div class="ui raised left aligned segment">
                         <div class="ui bottom right attached label">
@@ -62,7 +61,7 @@
                         .prop('disabled', function(i, v) { return !$('#code\\:secure').is(':checked');});
 
                     $('#option-button').on('click', function(e) {
-                        window.location.replace($(this).hasClass('world') ? '/mail' : '/');
+                        window.location.replace($(this).hasClass('external') ? '/mail' : '/');
                     });
                 });
             </script>
