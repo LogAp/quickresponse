@@ -9,23 +9,23 @@
       xmlns:p="http://primefaces.org/ui">
 <h:body>
     <ui:composition template="templates/layout.xhtml">
-        <ui:define name="title">Unlock | </ui:define>
+        <ui:define name="title"><h:outputText value="#{dialog['titles.unlock']}"/> | </ui:define>
         <ui:define name="content">
             <div class="tight column">
-                <h1 class="ui header">Quick Response</h1>
                 <h:form id="unlock" class="ui large form" onsubmit="disableButton()">
                     <div class="ui stacked segment">
                         <div class="field">
                             <div class="ui left icon action input #{unlockController.invalid ? 'error' : ''}">
                                 <i class="lock icon"/>
-                                <h:inputSecret value="#{unlockController.password}" a:placeholder="Type your password..."/>
-                                <p:commandButton id="button" styleClass="ui blue small button" action="#{unlockController.unlock}" ajax="false" value="Unlock"/>
+                                <h:inputSecret value="#{unlockController.password}" a:placeholder="#{dialog['inputs.password.placeholder']}"/>
+                                <p:commandButton id="button" styleClass="ui blue small button"
+                                                 action="#{unlockController.unlock}" ajax="false" value="#{dialog['buttons.unlock']}"/>
                             </div>
                         </div>
                     </div>
                 </h:form>
                 <h:panelGroup styleClass="ui negative message" layout="block" rendered="#{unlockController.invalid}">
-                    <p>Wrong password!</p>
+                    <p><h:outputText value="#{dialog['messages.wrongPassword']}"/></p>
                 </h:panelGroup>
             </div>
         </ui:define>

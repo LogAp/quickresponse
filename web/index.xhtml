@@ -8,16 +8,18 @@
       xmlns:f="http://xmlns.jcp.org/jsf/core"
       xmlns:p="http://primefaces.org/ui">
 <h:body>
-    <ui:composition template="templates/codeForm.xhtml">
+    <ui:composition template="templates/code.xhtml">
+        <ui:param name="uriHasError" value="#{not empty facesContext.getMessageList('code:uri')}"/>
+        <ui:param name="encodeAction" value="store"/>
         <ui:define name="codeForm:fields">
             <div class="field">
-                <div class="ui left icon action input #{not empty facesContext.getMessageList('code:uri') ? 'error' : ''}">
-                    <i class="world link icon" id="option-button"/>
+                <div class="ui left icon action input #{uriHasError ? 'error' : ''}">
+                    <i class="external link icon" id="option-button"/>
                     <h:inputText title="Link" id="uri" required="true"
                                  value="#{codeController.codeRequest.uri}"
-                                 a:placeholder="Type your link..." a:type="url"
+                                 a:placeholder="#{dialog['inputs.link.placeholder']}" a:type="url"
                                  label="Link"/>
-                    <p:commandButton id="encode" styleClass="ui blue small button" action="#{codeController.store}" ajax="false" value="Encode"/>
+                    <ui:include src="templates/components/encodeButton.xhtml"/>
                 </div>
             </div>
         </ui:define>

@@ -9,10 +9,9 @@
       xmlns:p="http://primefaces.org/ui">
 <h:body>
     <ui:composition template="layout.xhtml">
+        <ui:param name="hasErrorMessages" value="#{not empty facesContext.getMessageList()}"/>
         <ui:define name="content">
-            <div class="tight column">
-                <ui:param name="errorMessages" value="#{facesContext.getMessageList()}"/>
-                <h1 class="ui header">Quick Response</h1>
+            <div class="column">
                 <h:form id="code" class="ui large form" onsubmit="disableEncode()">
                     <div class="ui raised left aligned segment">
                         <div class="ui bottom right attached label">
@@ -24,7 +23,7 @@
                         </ui:insert>
                         <div class="field">
                             <div class="ui right labeled input">
-                                <h:inputSecret value="#{codeController.codeRequest.password}" id="password" a:placeholder="Type your password..."/>
+                                <h:inputSecret value="#{codeController.codeRequest.password}" id="password" a:placeholder="#{dialog['inputs.password.placeholder']}"/>
                                 <div class="ui label">
                                     <div class="ui toggle checkbox">
                                         <h:selectBooleanCheckbox id="secure" value="#{codeController.codeRequest.secure}" onchange="togglePassword();"/>
@@ -37,9 +36,9 @@
                         </div>
                     </div>
                 </h:form>
-                <h:panelGroup layout="block" rendered="#{not empty errorMessages}" styleClass="ui left aligned error message">
+                <h:panelGroup layout="block" rendered="#{hasErrorMessages}" styleClass="ui left aligned error message">
                     <div class="header">
-                        Error while encoding; Please review and correct listed errors.
+                        <h:outputText value="#{dialog['messages.errorOnEncode']}"/>
                     </div>
                     <h:messages globalOnly="false" styleClass="list"/>
                 </h:panelGroup>
@@ -62,7 +61,7 @@
                         .prop('disabled', function(i, v) { return !$('#code\\:secure').is(':checked');});
 
                     $('#option-button').on('click', function(e) {
-                        window.location.replace($(this).hasClass('world') ? '/mail' : '/');
+                        window.location.replace($(this).hasClass('external') ? '/mail' : '/');
                     });
                 });
             </script>

@@ -22,8 +22,6 @@ public class ResultController {
     @ManagedProperty(value = "#{param.uuid}")
     private String uuid;
 
-    private String qrCode;
-
     public String findCode() {
         ResourceService<Code, UUID> service = new ResourceService<>(new CodeDAO());
         try {
@@ -48,12 +46,7 @@ public class ResultController {
     }
 
     public String getQrCode() {
-        this.qrCode = code.generateImage();
-        return qrCode;
-    }
-
-    public void setQrCode(String qrCode) {
-        this.qrCode = qrCode;
+        return code.generateImage();
     }
 
     public void download() throws IOException {

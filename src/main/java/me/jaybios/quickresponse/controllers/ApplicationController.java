@@ -12,6 +12,8 @@ import java.util.jar.Manifest;
 @ApplicationScoped
 public class ApplicationController {
     private Manifest manifest = null;
+    private Boolean debug;
+    private String version;
 
     @PostConstruct
     public void init() {
@@ -21,21 +23,22 @@ public class ApplicationController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+        String debugEnv = System.getenv("DEBUG");
+        debug =  debugEnv != null && debugEnv.equals("true");
+
+        String stagingEnv = System.getenv("STAGING");
+        Boolean staging = stagingEnv != null && stagingEnv.equals("true");
+
+        String releaseVersion = manifest.getMainAttributes().getValue("Implementation-Version");
+        String commitHash = manifest.getMainAttributes().getValue("Commit-Hash");
+        version = staging ? commitHash : releaseVersion;
     }
 
     public boolean getDebug() {
-        String debug = System.getenv("DEBUG");
-        return debug != null && debug.equals("true");
-    }
-
-    private boolean getStaging() {
-        String staging = System.getenv("STAGING");
-        return staging != null && staging.equals("true");
+        return debug;
     }
 
     public String getVersion() {
-        String releaseVersion = manifest.getMainAttributes().getValue("Implementation-Version");
-        String commitHash = manifest.getMainAttributes().getValue("Commit-Hash");
-        return getStaging() ? commitHash : releaseVersion;
+        return version;
     }
 }
