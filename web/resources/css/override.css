@@ -5,14 +5,6 @@
     font-style: normal;
     font-weight: normal;
     font-variant: normal;
-    text-decoration: inherit;
-    text-transform: none;
-}
-
-@media only screen and (min-width: 451px) {
-    #main-grid {
-        max-width: 450px !important;
-    }
 }
 
 i.flag:not(.icon) {
@@ -354,6 +346,7 @@ i.flag.estonia:before {
     background-position: 0 -1612px;
 }
 
+/*noinspection CssUnusedSymbol,CssUnusedSymbol*/
 i.flag.eg:before,
 i.flag.egypt:before {
     background-position: 0 -1638px;

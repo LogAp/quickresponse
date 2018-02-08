@@ -1,21 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
         "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-<html xmlns="http://www.w3.org/1999/xhtml"
-      xmlns:h="http://xmlns.jcp.org/jsf/html"
-      xmlns:ui="http://java.sun.com/jsf/facelets"
-      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
-      xmlns:f="http://xmlns.jcp.org/jsf/core"
-      xmlns:p="http://primefaces.org/ui">
+<html xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://java.sun.com/jsf/facelets">
 <h:body>
     <ui:composition template="templates/layout.xhtml">
+        <ui:define name="title">404 - <h:outputText value="#{dialog['exceptions.404']}"/> | </ui:define>
+        <ui:param name="isExceptionPage" value="true"/>
         <ui:define name="content">
-            <div class="exception column">
-                <h1 class="ui header">Quick Response</h1>
-                <div class="ui left aligned stacked segment">
-                    <h2>404 - Page Not Found</h2>
-                    <p>Sorry! The page that you're looking for, does not exist.</p>
-                    <p><h:link outcome="pretty:view-home">Click here to go to the home page.</h:link></p>
+            <div class="column">
+                <div class="ui left aligned raised segment">
+                    <h2>404 - <h:outputText value="#{dialog['exceptions.404']}"/></h2>
+                    <p><h:outputText value="#{dialog['exceptions.404.description']}"/></p>
+                    <p><h:link outcome="pretty:view-home" value="#{dialog['exceptions.goToHomePage']}"/></p>
                 </div>
             </div>
         </ui:define>

@@ -20,7 +20,7 @@
         <setting name="validation-enabled" value="true" />
         <setting name="provider-name" value="Hibernate" />
         <datasource-mapping>
-          <factory-entry name="default" />
+          <factory-entry name="default" value="090fd46e-9c6d-4bcc-a700-6a3fd0ccffff" />
         </datasource-mapping>
         <deploymentDescriptor name="persistence.xml" url="file://$MODULE_DIR$/src/main/resources/META-INF/persistence.xml" />
       </configuration>
@@ -38,8 +38,6 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" name="Maven: org.apache.commons:commons-text:1.2" level="project" />
-    <orderEntry type="library" name="Maven: org.apache.commons:commons-lang3:3.7" level="project" />
     <orderEntry type="library" name="Maven: org.postgresql:postgresql:42.2.1" level="project" />
     <orderEntry type="library" name="Maven: com.sun.faces:jsf-api:2.2.16" level="project" />
     <orderEntry type="library" name="Maven: com.sun.faces:jsf-impl:2.2.16" level="project" />

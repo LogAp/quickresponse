@@ -14,7 +14,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - i18n support.
 
 ### Changed
-- ApplicationController to a sigleton (ApplicationScoped), with eager behavior.
+- ApplicationController to a singleton (ApplicationScoped), with eager behavior.
 - Disabled browser cache.
 - Restructured page layout.
 
@@ -25,7 +25,7 @@ and this project adheres to [Semantic Versioning](http://semver.org/spec/v2.0.0.
 - JUnit for unit testing.
 - PrettyFaces for path rewrites.
 - QRGen for QRCode manipulation.
-- Code entity that represents an unsecure QRCode link. 
+- Code entity that represents an unsecured QRCode link. 
 - SecureCode entity that represents a password secure QRCode link.
 - DAO Interface and DatabaseHandler class that holds database access methods.
 - CodeDAO that holds the database transactions for the Code Entity.

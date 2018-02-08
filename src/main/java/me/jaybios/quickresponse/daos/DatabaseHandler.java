@@ -31,7 +31,7 @@ public abstract class DatabaseHandler<T, I extends Serializable> implements DAO<
         currentSession.close();
     }
 
-    public EntityManager getCurrentSession() {
+    EntityManager getCurrentSession() {
         return currentSession;
     }
 

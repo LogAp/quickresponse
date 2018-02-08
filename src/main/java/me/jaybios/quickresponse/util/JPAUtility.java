@@ -12,7 +12,7 @@ public class JPAUtility {
     private static final EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("default", overrideConfiguration());
 
     private static Map<String, Object> overrideConfiguration() {
-        Map<String, Object> overrideData = new HashMap<String, Object>();
+        Map<String, Object> overrideData = new HashMap<>();
         try {
             URI databaseURI = new URI(System.getenv("DATABASE_URL"));
 
@@ -36,9 +36,7 @@ public class JPAUtility {
             overrideData.put("javax.persistence.jdbc.password", password);
 
             return overrideData;
-        } catch (URISyntaxException e) {
-            return overrideData;
-        } catch (NullPointerException e) {
+        } catch (URISyntaxException | NullPointerException e) {
             return overrideData;
         }
     }

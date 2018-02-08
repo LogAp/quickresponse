@@ -44,7 +44,7 @@ public class CodeController {
     }
 
     private void createSecure() {
-        ResourceService<SecureCode, UUID> service = new ResourceService<SecureCode, UUID>(new SecureCodeDAO());
+        ResourceService<SecureCode, UUID> service = new ResourceService<>(new SecureCodeDAO());
         SecureCode code = new SecureCode();
         code.setUri(codeRequest.getUri());
         code.setPassword(codeRequest.getPassword());
@@ -53,7 +53,7 @@ public class CodeController {
     }
 
     private void createUnsecure() {
-        ResourceService<Code, UUID> service = new ResourceService<Code, UUID>(new CodeDAO());
+        ResourceService<Code, UUID> service = new ResourceService<>(new CodeDAO());
         Code code = new Code();
         code.setUri(codeRequest.getUri());
         service.store(code);

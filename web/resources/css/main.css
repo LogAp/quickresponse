@@ -6,8 +6,16 @@ body > .grid {
     height: 100%;
 }
 
-.exception.column {
-    max-width: 720px;
+.force.margin {
+    margin: 1rem 0;
+}
+
+.force.margin:first-child {
+    margin: 1rem 0;
+}
+
+.force.margin:last-child {
+    margin: 1rem 0;
 }
 
 .stack-trace {
@@ -16,4 +24,16 @@ body > .grid {
     background-color: #FAFAFA;
     border: #EFEFEF solid 1px;
     padding: 5px;
+}
+
+@media only screen and (min-width: 451px) {
+    .tight.ui {
+        max-width: 450px !important;
+    }
+}
+
+@media only screen and (min-width: 721px) {
+    .exception.ui {
+        max-width: 720px !important;
+    }
 }
