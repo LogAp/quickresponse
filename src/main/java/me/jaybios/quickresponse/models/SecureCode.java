@@ -1,23 +1,21 @@
 package me.jaybios.quickresponse.models;
 
-import me.jaybios.quickresponse.models.listeners.SecureCodeListener;
+import me.jaybios.quickresponse.models.listeners.SecureListener;
+import me.jaybios.quickresponse.util.hashers.Hasher;
 import me.jaybios.quickresponse.util.hashers.PBKDF2SHA256Hasher;
 import net.glxn.qrgen.javase.QRCode;
-import org.apache.commons.codec.binary.Base64;
 
-import javax.persistence.DiscriminatorValue;
-import javax.persistence.Entity;
-import javax.persistence.EntityListeners;
-import javax.persistence.ExcludeSuperclassListeners;
-import java.security.SecureRandom;
-import java.util.Random;
+import javax.persistence.*;
 
 @Entity
-@EntityListeners(SecureCodeListener.class)
+@EntityListeners(SecureListener.class)
 @ExcludeSuperclassListeners
 @DiscriminatorValue("1")
-public class SecureCode extends Code {
+public class SecureCode extends Code implements Secure {
     private String password;
+
+    @Transient
+    private Hasher hasher = new PBKDF2SHA256Hasher();
 
     public String getPassword() {
         return password;
@@ -27,17 +25,8 @@ public class SecureCode extends Code {
         this.password = password;
     }
 
-    public boolean checkPassword(String otherPassword) {
-        PBKDF2SHA256Hasher hasher = new PBKDF2SHA256Hasher();
-        return hasher.checkPassword(otherPassword, password);
-    }
-
-    public void hashPassword() {
-        Random random = new SecureRandom();
-        PBKDF2SHA256Hasher hasher = new PBKDF2SHA256Hasher();
-        byte[] salt = new byte[32];
-        random.nextBytes(salt);
-        password = hasher.encode(password, Base64.encodeBase64String(salt));
+    public Hasher getHasher() {
+        return hasher;
     }
 
     @Override

@@ -9,7 +9,7 @@
         <ui:param name="uriHasError" value="#{not empty facesContext.getMessageList('code:uri')}"/>
         <ui:param name="encodeAction" value="store"/>
         <ui:define name="codeForm:fields">
-            <div class="field">
+            <div class="required field">
                 <!--suppress ELValidationInJSP -->
                 <div class="ui left icon action input #{uriHasError ? 'error' : ''}">
                     <i class="external link icon" id="option-button"/>

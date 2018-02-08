@@ -54,7 +54,7 @@ public class UnlockController {
 
     public String unlock() throws IOException {
         ExternalContext externalContext = FacesContext.getCurrentInstance().getExternalContext();
-        if (code.checkPassword(password)) {
+        if (code.getHasher().verify(password, code.getPassword())) {
             externalContext.redirect(code.getUri());
             return null;
         }

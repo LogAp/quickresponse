@@ -19,27 +19,35 @@
     </h:head>
     <h:body>
         <!--suppress ELValidationInJSP -->
-        <div id="main-grid" class="#{isExceptionPage ? 'exception' : 'tight'} ui middle aligned center aligned container grid">
+        <div id="main-grid" class="ui middle aligned center aligned container grid">
             <div class="column">
                 <div class="row">
-                    <div class="column">
-                        <div class="ui left aligned menu force margin">
-                            <h:link styleClass="header item" outcome="pretty:view-home" value="Quick Response"/>
-                            <h:form id="i18n">
-                                <!--suppress ELValidationInJSP -->
-                                <h:panelGroup layout="block" class="ui dropdown #{isExceptionPage ? 'disabled ' : ''}item">
-                                    <h:panelGroup layout="block" styleClass="text">
-                                        <h:outputText value="#{dialog['buttons.language']}"/>
+                    <div class="ui middle aligned center aligned grid">
+                        <div class="eight wide column">
+                            <div class="ui left aligned left floated compact menu force margin">
+                                <h:link styleClass="header item" outcome="pretty:view-home" value="Quick Response"/>
+                                <h:link styleClass="item" outcome="pretty:view-register" value="#{dialog['links.register']}"/>
+                                <h:link styleClass="item" outcome="pretty:view-login" value="#{dialog['links.login']}"/>
+                                <ui:insert name="header">
+                                </ui:insert>
+                            </div>
+                        </div>
+                        <div class="eight wide column">
+                            <div class="ui right floated compact menu">
+                                <h:form id="i18n">
+                                    <!--suppress ELValidationInJSP -->
+                                    <h:panelGroup layout="block" class="ui dropdown #{isExceptionPage ? 'disabled ' : ''}item">
+                                        <h:panelGroup layout="block" styleClass="text">
+                                            <h:outputText value="#{dialog['buttons.language']}"/>
+                                        </h:panelGroup>
+                                        <h:selectOneMenu id="language-dropdown" value="#{i18nController.locale}"
+                                                         onchange="submit()" converter="localeConverter"
+                                                         valueChangeListener="#{i18nController.localeChanged}">
+                                            <f:selectItems value="#{applicationController.supportedLocales}"/>
+                                        </h:selectOneMenu>
                                     </h:panelGroup>
-                                    <h:selectOneMenu id="language-dropdown" value="#{i18nController.locale}"
-                                                     onchange="submit()" converter="localeConverter"
-                                                     valueChangeListener="#{i18nController.localeChanged}">
-                                        <f:selectItems value="#{applicationController.supportedLocales}"/>
-                                    </h:selectOneMenu>
-                                </h:panelGroup>
-                            </h:form>
-                            <ui:insert name="header">
-                            </ui:insert>
+                                </h:form>
+                            </div>
                         </div>
                     </div>
                 </div>

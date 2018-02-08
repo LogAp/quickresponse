@@ -26,4 +26,14 @@
         <action>#{unlockController.findCode}</action>
     </url-mapping>
 
+    <url-mapping id="view-register">
+        <pattern value="/register"/>
+        <view-id value="/register.xhtml"/>
+    </url-mapping>
+
+    <url-mapping id="view-login">
+        <pattern value="/login"/>
+        <view-id value="/login.xhtml"/>
+    </url-mapping>
+
 </pretty-config>
