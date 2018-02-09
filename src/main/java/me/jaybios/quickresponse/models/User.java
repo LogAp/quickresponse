@@ -25,6 +25,15 @@ public class User implements Secure {
     @Column(unique = true, updatable = false, nullable = false)
     private UUID uuid;
 
+    @NotNull
+    @Column(unique = true, nullable = false)
+    private String username;
+
+    @NotNull
+    @Pattern(regexp = "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\\\.[A-Z]{2,6}$")
+    @Column(unique = true, nullable = false)
+    private String email;
+
     /* Pattern:
      * At least 8 chars;
      * Contains at least one digit;
@@ -33,7 +42,8 @@ public class User implements Secure {
      * Does not contain spaces or tabs.
      */
     @NotNull
-    @Pattern(regexp="^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$")
+    @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$")
+    @Column(nullable = false)
     private String password;
 
     @OneToMany(fetch = FetchType.LAZY)
@@ -69,5 +79,21 @@ public class User implements Secure {
     @Override
     public Hasher getHasher() {
         return hasher;
+    }
+
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username;
+    }
+
+    public String getEmail() {
+        return email;
+    }
+
+    public void setEmail(String email) {
+        this.email = email;
     }
 }

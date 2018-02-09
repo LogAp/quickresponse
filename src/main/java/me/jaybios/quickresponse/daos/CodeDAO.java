@@ -18,6 +18,12 @@ public class CodeDAO extends DatabaseHandler<Code, UUID> {
         return getCurrentSession().find(Code.class, uuid);
     }
 
+    public Code findByProperty(String property, String value) {
+        TypedQuery<Code> query = getCurrentSession()
+                .createQuery(String.format("select c from Code c where c.%s = '%s'", property, value), Code.class);
+        return query.getSingleResult();
+    }
+
     public void persist(Code entity) {
         getCurrentSession().persist(entity);
     }

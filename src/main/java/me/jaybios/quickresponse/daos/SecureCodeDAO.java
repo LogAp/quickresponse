@@ -16,6 +16,12 @@ public class SecureCodeDAO extends DatabaseHandler<SecureCode, UUID> {
         return getCurrentSession().find(SecureCode.class, uuid);
     }
 
+    public SecureCode findByProperty(String property, String value) {
+        TypedQuery<SecureCode> query = getCurrentSession()
+                .createQuery(String.format("select c from SecureCode c where c.%s = '%s'", property, value), SecureCode.class);
+        return query.getSingleResult();
+    }
+
     public void persist(SecureCode entity) {
         getCurrentSession().persist(entity);
     }

@@ -6,7 +6,7 @@ import java.io.Serializable;
 import java.util.List;
 
 public class ResourceService<T, I extends Serializable> {
-    private final DatabaseHandler<T, I> dao;
+    protected final DatabaseHandler<T, I> dao;
 
     public ResourceService(DatabaseHandler<T, I> dao) {
         this.dao = dao;
