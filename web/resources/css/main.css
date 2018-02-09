@@ -3,7 +3,12 @@ body {
 }
 
 body > .grid {
-    height: 100%;
+    margin-top: 1rem !important;
+}
+
+.ui.form input.code.padding {
+    padding-top: 12px;
+    padding-bottom: 12px;
 }
 
 .force.margin {

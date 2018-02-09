@@ -9,17 +9,24 @@
         <ui:param name="uriHasError" value="#{not empty facesContext.getMessageList('code:uri')}"/>
         <ui:param name="encodeAction" value="store"/>
         <ui:define name="codeForm:fields">
-            <div class="required field">
-                <!--suppress ELValidationInJSP -->
-                <div class="ui left icon action input #{uriHasError ? 'error' : ''}">
-                    <i class="external link icon" id="option-button"/>
-                    <h:inputText title="Link" id="uri" required="true"
-                                 value="#{codeController.codeRequest.uri}"
-                                 a:placeholder="#{dialog['inputs.link.placeholder']}" a:type="url"
-                                 label="Link"/>
-                    <ui:include src="templates/components/encodeButton.xhtml"/>
-                </div>
-            </div>
+            <h:panelGroup layout="block" styleClass="two fields">
+                <h:panelGroup layout="block" styleClass="required field">
+                    <!--suppress ELValidationInJSP -->
+                    <h:panelGroup layout="block" styleClass="ui left icon input #{uriHasError ? 'error' : ''}">
+                        <i class="external link icon" id="option-button"/>
+                        <h:inputText title="Link" id="uri" required="true"
+                                     value="#{codeController.codeRequest.uri}"
+                                     a:placeholder="#{dialog['inputs.link.placeholder']}" a:type="url"
+                                     label="Link" styleClass="code padding"/>
+                    </h:panelGroup>
+                </h:panelGroup>
+                <h:panelGroup layout="block" styleClass="field">
+                    <ui:include src="templates/components/passwordInput.xhtml"/>
+                </h:panelGroup>
+            </h:panelGroup>
+            <h:panelGroup layout="block" styleClass="field">
+                <ui:include src="templates/components/encodeButton.xhtml"/>
+            </h:panelGroup>
         </ui:define>
     </ui:composition>
 </h:body>

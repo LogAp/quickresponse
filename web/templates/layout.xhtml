@@ -7,7 +7,8 @@
 <f:view locale="#{i18nController.locale}">
     <h:head>
         <title><ui:insert name="title"/>Quick Response</title>
-        <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+        <meta http-equiv="X-UA-Compatible" content="IE=edge, chrome=1"/>
+        <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1"/>
         <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
         <link rel="shortcut icon" type="image/x-icon" href="#{resource['images/favicon.ico']}"/>
         <!-- Third Party -->
@@ -19,44 +20,41 @@
     </h:head>
     <h:body>
         <!--suppress ELValidationInJSP -->
-        <div id="main-grid" class="ui middle aligned center aligned container grid">
-            <div class="column">
-                <div class="row">
-                    <div class="ui middle aligned center aligned grid">
-                        <div class="eight wide column">
-                            <div class="ui left aligned left floated compact menu force margin">
-                                <h:link styleClass="header item" outcome="pretty:view-home" value="Quick Response"/>
-                                <h:link styleClass="item" outcome="pretty:view-register" value="#{dialog['links.register']}"/>
-                                <h:link styleClass="item" outcome="pretty:view-login" value="#{dialog['links.login']}"/>
-                                <ui:insert name="header">
-                                </ui:insert>
-                            </div>
-                        </div>
-                        <div class="eight wide column">
-                            <div class="ui right floated compact menu">
-                                <h:form id="i18n">
-                                    <!--suppress ELValidationInJSP -->
-                                    <h:panelGroup layout="block" class="ui dropdown #{isExceptionPage ? 'disabled ' : ''}item">
-                                        <h:panelGroup layout="block" styleClass="text">
-                                            <h:outputText value="#{dialog['buttons.language']}"/>
-                                        </h:panelGroup>
-                                        <h:selectOneMenu id="language-dropdown" value="#{i18nController.locale}"
-                                                         onchange="submit()" converter="localeConverter"
-                                                         valueChangeListener="#{i18nController.localeChanged}">
-                                            <f:selectItems value="#{applicationController.supportedLocales}"/>
-                                        </h:selectOneMenu>
+        <h:panelGroup layout="block" styleClass="ui container grid">
+            <h:panelGroup layout="block" styleClass="row">
+                <h:panelGroup styleClass="column">
+                    <h:panelGroup styleClass="ui fluid stackable menu">
+                        <h:link styleClass="header item" outcome="pretty:view-home" value="Quick Response"/>
+                        <h:link styleClass="item" outcome="pretty:view-register"
+                                value="#{dialog['links.register']}"/>
+                        <h:link styleClass="item" outcome="pretty:view-login"
+                                value="#{dialog['links.login']}"/>
+                        <ui:insert name="header">
+                        </ui:insert>
+                        <h:panelGroup styleClass="right menu">
+                            <h:form id="i18n">
+                                <!--suppress ELValidationInJSP -->
+                                <h:panelGroup layout="block"
+                                              class="ui dropdown #{isExceptionPage ? 'disabled ' : ''}item">
+                                    <h:panelGroup layout="block" styleClass="text">
+                                        <h:outputText value="#{dialog['buttons.language']}"/>
                                     </h:panelGroup>
-                                </h:form>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="row">
-                    <ui:insert name="content">
-                    </ui:insert>
-                </div>
+                                    <h:selectOneMenu id="language-dropdown" value="#{i18nController.locale}"
+                                                     onchange="submit()" converter="localeConverter"
+                                                     valueChangeListener="#{i18nController.localeChanged}">
+                                        <f:selectItems value="#{applicationController.supportedLocales}"/>
+                                    </h:selectOneMenu>
+                                </h:panelGroup>
+                            </h:form>
+                        </h:panelGroup>
+                    </h:panelGroup>
+                </h:panelGroup>
+            </h:panelGroup>
+            <div class="row">
+                <ui:insert name="content">
+                </ui:insert>
             </div>
-        </div>
+        </h:panelGroup>
         <!-- Third Party -->
         <h:outputScript library="webjars" name="jquery/3.3.1/jquery.min.js"/>
         <h:outputScript library="webjars" name="Semantic-UI/2.2.10/semantic.min.js"/>

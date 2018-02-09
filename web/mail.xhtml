@@ -9,25 +9,36 @@
         <ui:param name="emailHasError" value="#{not empty facesContext.getMessageList('code:email')}"/>
         <ui:param name="encodeAction" value="storeMail"/>
         <ui:define name="codeForm:fields">
-            <div class="field">
-                <!--suppress ELValidationInJSP -->
-                <div class="ui left icon action input #{emailHasError ? 'error' : ''}">
-                    <i class="at link icon" id="option-button"/>
-                    <h:inputText id="email" value="#{codeController.mailRequest.address}"
-                                 a:placeholder="#{dialog['inputs.email.placeholder']}"
-                                 a:type="email" tabindex="1" required="true" label="E-mail Address"/>
-                    <ui:include src="templates/components/encodeButton.xhtml"/>
-                </div>
-            </div>
-            <div class="field">
-                <div class="ui left icon input">
-                    <i class="quote left icon"/>
-                    <h:inputText value="#{codeController.mailRequest.subject}" a:placeholder="#{dialog['inputs.subject.placeholder']}" tabindex="2"/>
-                </div>
-            </div>
-            <div class="field">
-                <h:inputTextarea value="#{codeController.mailRequest.body}" a:placeholder="#{dialog['inputs.body.placeholder']}" tabindex="3"/>
-            </div>
+            <h:panelGroup layout="block" styleClass="three fields">
+                <h:panelGroup layout="block" styleClass="required field">
+                    <!--suppress ELValidationInJSP -->
+                    <div class="ui left icon input #{emailHasError ? 'error' : ''}">
+                        <i class="at link icon" id="option-button"/>
+                        <h:inputText id="email" value="#{codeController.mailRequest.address}"
+                                     a:placeholder="#{dialog['inputs.email.placeholder']}"
+                                     a:type="email" required="true" label="E-mail Address"
+                                     styleClass="code padding"/>
+                    </div>
+                </h:panelGroup>
+                <h:panelGroup layout="block" styleClass="field">
+                    <h:panelGroup layout="block" styleClass="ui left icon input">
+                        <i class="quote left icon"/>
+                        <h:inputText value="#{codeController.mailRequest.subject}"
+                                     a:placeholder="#{dialog['inputs.subject.placeholder']}"
+                                     styleClass="code padding"/>
+                    </h:panelGroup>
+                </h:panelGroup>
+                <h:panelGroup layout="block" styleClass="field">
+                    <ui:include src="templates/components/passwordInput.xhtml"/>
+                </h:panelGroup>
+            </h:panelGroup>
+            <h:panelGroup layout="block" styleClass="field">
+                <h:inputTextarea value="#{codeController.mailRequest.body}"
+                                 a:placeholder="#{dialog['inputs.body.placeholder']}"/>
+            </h:panelGroup>
+            <h:panelGroup layout="block" styleClass="field">
+                <ui:include src="templates/components/encodeButton.xhtml"/>
+            </h:panelGroup>
         </ui:define>
     </ui:composition>
 </h:body>
