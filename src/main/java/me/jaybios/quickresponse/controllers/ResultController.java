@@ -1,31 +1,36 @@
 package me.jaybios.quickresponse.controllers;
 
-import me.jaybios.quickresponse.daos.CodeDAO;
 import me.jaybios.quickresponse.models.Code;
+import me.jaybios.quickresponse.producers.HttpParam;
+import me.jaybios.quickresponse.services.CodeService;
 import me.jaybios.quickresponse.services.ResourceService;
 import net.glxn.qrgen.javase.QRCode;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.RequestScoped;
+import javax.enterprise.context.RequestScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
+import javax.inject.Named;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.UUID;
 
-@ManagedBean
+@Named
 @RequestScoped
 public class ResultController {
+
+    @Inject
+    @CodeService
+    private ResourceService<Code, UUID> codeService;
+
     private Code code;
 
-    @ManagedProperty(value = "#{param.uuid}")
-    private String uuid;
+    @Inject @HttpParam
+    private UUID uuid;
 
     public String findCode() {
-        ResourceService<Code, UUID> service = new ResourceService<>(new CodeDAO());
         try {
-            code = service.findById(UUID.fromString(uuid));
+            code = codeService.findById(uuid);
         } catch(IllegalArgumentException e) {
             return "pretty:view-home";
         }
@@ -35,14 +40,6 @@ public class ResultController {
         }
 
         return null;
-    }
-
-    public String getUuid() {
-        return uuid;
-    }
-
-    public void setUuid(String uuid) {
-        this.uuid = uuid;
     }
 
     public String getQrCode() {

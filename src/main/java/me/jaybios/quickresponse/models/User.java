@@ -6,6 +6,8 @@ import me.jaybios.quickresponse.util.hashers.PBKDF2SHA256Hasher;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 
+import javax.enterprise.inject.Default;
+import javax.enterprise.inject.Model;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -17,6 +19,7 @@ import java.util.UUID;
 @Inheritance(strategy = InheritanceType.SINGLE_TABLE)
 @DiscriminatorColumn(name = "admin", length = 1, discriminatorType = DiscriminatorType.INTEGER)
 @DiscriminatorValue("0")
+@Table(name = "\"user\"")
 public class User implements Secure {
     @Id
     @GeneratedValue(generator = "uuid2")
@@ -30,7 +33,6 @@ public class User implements Secure {
     private String username;
 
     @NotNull
-    @Pattern(regexp = "^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\\\.[A-Z]{2,6}$")
     @Column(unique = true, nullable = false)
     private String email;
 
@@ -42,12 +44,13 @@ public class User implements Secure {
      * Does not contain spaces or tabs.
      */
     @NotNull
-    @Pattern(regexp = "^(?=.*[0-9])(?=.*[a-z])(?=.*[A-Z])(?=.*[@#$%^&+=])(?=\\S+$).{8,}$")
     @Column(nullable = false)
     private String password;
 
     @OneToMany(fetch = FetchType.LAZY)
     private List<Code> codes;
+
+    private boolean active;
 
     @Transient
     private Hasher hasher = new PBKDF2SHA256Hasher();
@@ -95,5 +98,18 @@ public class User implements Secure {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
+    }
+
+    public User() {
+        super();
+        active = false;
     }
 }

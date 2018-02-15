@@ -1,53 +1,48 @@
 package me.jaybios.quickresponse.services;
 
-import me.jaybios.quickresponse.daos.DatabaseHandler;
+import me.jaybios.quickresponse.daos.PersistentDAO;
 
 import java.io.Serializable;
 import java.util.List;
 
 public class ResourceService<T, I extends Serializable> {
-    protected final DatabaseHandler<T, I> dao;
 
-    public ResourceService(DatabaseHandler<T, I> dao) {
+    PersistentDAO<T, I> dao;
+
+    public ResourceService(PersistentDAO<T, I> dao) {
         this.dao = dao;
     }
 
     public void store(T entity) {
-        dao.openSessionWithTransaction();
+        dao.openTransaction();
         dao.persist(entity);
-        dao.closeSessionAndCommit();
+        dao.commit();
     }
 
     public void update(T entity) {
-        dao.openSessionWithTransaction();
+        dao.openTransaction();
         dao.update(entity);
-        dao.closeSessionAndCommit();
+        dao.commit();
     }
 
     public void deleteById(I id) {
-        dao.openSessionWithTransaction();
+        dao.openTransaction();
         T code = dao.findByID(id);
         dao.delete(code);
-        dao.closeSessionAndCommit();
+        dao.commit();
     }
 
     public T findById(I id) {
-        dao.openSession();
-        T code = dao.findByID(id);
-        dao.closeSession();
-        return code;
+        return dao.findByID(id);
     }
 
     public List<T> findAll() {
-        dao.openSession();
-        List<T> codes = dao.findAll();
-        dao.closeSession();
-        return codes;
+        return dao.findAll();
     }
 
     public void deleteAll() {
-        dao.openSessionWithTransaction();
+        dao.openTransaction();
         dao.deleteAll();
-        dao.closeSessionAndCommit();
+        dao.commit();
     }
 }

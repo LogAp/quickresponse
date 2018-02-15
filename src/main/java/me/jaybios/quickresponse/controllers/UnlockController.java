@@ -1,33 +1,34 @@
 package me.jaybios.quickresponse.controllers;
 
-import me.jaybios.quickresponse.daos.SecureCodeDAO;
 import me.jaybios.quickresponse.models.SecureCode;
+import me.jaybios.quickresponse.producers.HttpParam;
 import me.jaybios.quickresponse.services.ResourceService;
+import me.jaybios.quickresponse.services.SecureCodeService;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.ManagedProperty;
-import javax.faces.bean.RequestScoped;
+import javax.enterprise.context.RequestScoped;
 import javax.faces.context.ExternalContext;
 import javax.faces.context.FacesContext;
+import javax.inject.Inject;
+import javax.inject.Named;
 import java.io.IOException;
 import java.util.UUID;
 
-@ManagedBean
+@Named
 @RequestScoped
 public class UnlockController {
+
+    @Inject
+    @SecureCodeService
+    private ResourceService<SecureCode, UUID> secureCodeService;
+
+    @Inject
     private SecureCode code;
 
-    @ManagedProperty(value = "#{param.id}")
-    private String uuid;
+    @Inject
+    @HttpParam
+    private UUID id;
+
     private String password;
-
-    public String getUuid() {
-        return uuid;
-    }
-
-    public void setUuid(String uuid) {
-        this.uuid = uuid;
-    }
 
     public String getPassword() {
         return password;
@@ -38,9 +39,8 @@ public class UnlockController {
     }
 
     public String findCode() {
-        ResourceService<SecureCode, UUID> service = new ResourceService<>(new SecureCodeDAO());
         try {
-            code = service.findById(UUID.fromString(uuid));
+            code = secureCodeService.findById(id);
         } catch (IllegalArgumentException | NullPointerException e) {
             return "pretty:view-home";
         }

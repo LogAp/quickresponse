@@ -5,5 +5,6 @@ import javax.persistence.Entity;
 
 @Entity
 @DiscriminatorValue("1")
+@SuperUser
 public class Administrator extends User {
 }

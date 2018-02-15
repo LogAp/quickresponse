@@ -1,0 +1,20 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<f:view>
+    <ui:composition template="templates/layout.xhtml">
+        <ui:define name="title"><h:outputText value="#{dialog['titles.register.activate']}"/> | </ui:define>
+        <ui:define name="content">
+            <h:panelGroup layout="block" styleClass="column">
+                <h:panelGroup layout="block" styleClass="ui raised segment">
+                    <h2>Activate your account</h2>
+                    <p>To complete your sign up, access the activation link that has been sent to your e-mail.</p>
+                </h:panelGroup>
+            </h:panelGroup>
+        </ui:define>
+    </ui:composition>
+</f:view>
+</html>

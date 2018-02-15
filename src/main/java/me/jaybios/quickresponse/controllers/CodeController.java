@@ -2,22 +2,36 @@ package me.jaybios.quickresponse.controllers;
 
 import me.jaybios.quickresponse.controllers.requests.CodeRequest;
 import me.jaybios.quickresponse.controllers.requests.MailRequest;
-import me.jaybios.quickresponse.daos.CodeDAO;
-import me.jaybios.quickresponse.daos.SecureCodeDAO;
 import me.jaybios.quickresponse.models.Code;
 import me.jaybios.quickresponse.models.SecureCode;
+import me.jaybios.quickresponse.services.CodeService;
 import me.jaybios.quickresponse.services.ResourceService;
+import me.jaybios.quickresponse.services.SecureCodeService;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import javax.enterprise.context.RequestScoped;
+import javax.inject.Inject;
+import javax.inject.Named;
 import java.util.UUID;
 
-@ManagedBean
+@Named
 @RequestScoped
 public class CodeController {
+
+    @Inject
+    @CodeService
+    private ResourceService<Code, UUID> codeService;
+
+    @Inject
+    @SecureCodeService
+    private ResourceService<SecureCode, UUID> secureCodeService;
+
     private String uuid;
-    private CodeRequest codeRequest = new CodeRequest();
-    private MailRequest mailRequest = new MailRequest();
+
+    @Inject
+    private CodeRequest codeRequest;
+
+    @Inject
+    private MailRequest mailRequest;
 
     public CodeRequest getCodeRequest() {
         return codeRequest;
@@ -44,19 +58,17 @@ public class CodeController {
     }
 
     private void createSecure() {
-        ResourceService<SecureCode, UUID> service = new ResourceService<>(new SecureCodeDAO());
         SecureCode code = new SecureCode();
         code.setUri(codeRequest.getUri());
         code.setPassword(codeRequest.getPassword());
-        service.store(code);
+        secureCodeService.store(code);
         uuid = code.getUuid().toString();
     }
 
     private void createUnsecure() {
-        ResourceService<Code, UUID> service = new ResourceService<>(new CodeDAO());
         Code code = new Code();
         code.setUri(codeRequest.getUri());
-        service.store(code);
+        codeService.store(code);
         uuid = code.getUuid().toString();
     }
 

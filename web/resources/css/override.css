@@ -7,6 +7,14 @@
     font-variant: normal;
 }
 
+.ui.form .error input[type=text], .ui.form .error input[type=url], .ui.form .error input[type=password],
+.ui.form .error input[type=email] {
+    background-color: #FFF6F6;
+    border-color: #E0B4B4;
+    color: #9F3A38;
+    box-shadow: none;
+}
+
 i.flag:not(.icon) {
     display: inline-block;
     width: 16px;

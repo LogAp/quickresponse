@@ -31,6 +31,11 @@
         <view-id value="/register.xhtml"/>
     </url-mapping>
 
+    <url-mapping id="view-register-activate">
+        <pattern value="/register/activate"/>
+        <view-id value="/registerActivate.xhtml"/>
+    </url-mapping>
+
     <url-mapping id="view-login">
         <pattern value="/login"/>
         <view-id value="/login.xhtml"/>

@@ -1,15 +1,21 @@
-package me.jaybios.quickresponse.util;
+package me.jaybios.quickresponse.producers;
 
+import javax.annotation.PostConstruct;
+import javax.annotation.PreDestroy;
+import javax.enterprise.context.ApplicationScoped;
+import javax.enterprise.context.RequestScoped;
+import javax.enterprise.inject.Disposes;
+import javax.enterprise.inject.Produces;
 import javax.persistence.EntityManager;
-import javax.persistence.EntityManagerFactory;
 import javax.persistence.Persistence;
 import java.net.URI;
 import java.net.URISyntaxException;
 import java.util.HashMap;
 import java.util.Map;
 
-public class JPAUtility {
-    private static final EntityManagerFactory entityManagerFactory = Persistence.createEntityManagerFactory("default", overrideConfiguration());
+@ApplicationScoped
+public class EntityManagerProducer {
+    private javax.persistence.EntityManagerFactory entityManagerFactory;
 
     private static Map<String, Object> overrideConfiguration() {
         Map<String, Object> overrideData = new HashMap<>();
@@ -41,11 +47,27 @@ public class JPAUtility {
         }
     }
 
-    public static EntityManager getEntityManager() {
+    @PostConstruct
+    public void init() {
+        entityManagerFactory = Persistence.createEntityManagerFactory("default", overrideConfiguration());
+    }
+
+    @Produces
+    @RequestScoped
+    public EntityManager getEntityManager() {
         return entityManagerFactory.createEntityManager();
     }
 
-    public static void close() {
-        entityManagerFactory.close();
+    public void closeEntityManager(@Disposes EntityManager entityManager) {
+        if (entityManager.isOpen()) {
+            entityManager.close();
+        }
+    }
+
+    @PreDestroy
+    private void close() {
+        if (entityManagerFactory.isOpen()) {
+            entityManagerFactory.close();
+        }
     }
 }

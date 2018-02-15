@@ -1,14 +1,15 @@
 package me.jaybios.quickresponse.controllers;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.SessionScoped;
+import javax.enterprise.context.SessionScoped;
 import javax.faces.context.FacesContext;
 import javax.faces.event.ValueChangeEvent;
+import javax.inject.Named;
+import java.io.Serializable;
 import java.util.Locale;
 
-@ManagedBean
+@Named
 @SessionScoped
-public class I18nController {
+public class I18nController implements Serializable {
     private Locale locale = FacesContext.getCurrentInstance().getViewRoot().getLocale();
 
     public Locale getLocale() {

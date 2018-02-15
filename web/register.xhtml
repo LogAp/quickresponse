@@ -16,42 +16,112 @@
                         <h:panelGroup layout="block" styleClass="two fields">
                             <h:panelGroup layout="block" styleClass="required field">
                                 <label>E-mail</label>
-                                <h:panelGroup layout="block" styleClass="ui left icon input">
+                                <h:panelGroup id="email" layout="block" styleClass="ui left icon input #{registerController.emailInput.valid ? '' : 'error'}">
                                     <i class="at icon"/>
-                                    <h:inputText a:placeholder="#{dialog['inputs.register.email.placeholder']}"/>
+                                    <h:inputText id="emailInput" binding="#{registerController.emailInput}"
+                                                 a:placeholder="#{dialog['inputs.register.email.placeholder']}"
+                                                 a:type="email" value="#{registerController.user.email}">
+                                        <f:ajax delay="400" render="email username errorBlock"
+                                                execute="@this userInput"
+                                                onevent="onEmailChange"/>
+                                        <f:validator validatorId="availabilityValidator"/>
+                                        <f:validator validatorId="emailValidator"/>
+                                    </h:inputText>
                                 </h:panelGroup>
                             </h:panelGroup>
                             <h:panelGroup layout="block" styleClass="required field">
-                                <label><h:outputText value="#{dialog['inputs.register.password.label']}"/></label>
-                                <h:panelGroup layout="block" styleClass="ui left icon input">
-                                    <i class="lock icon"/>
-                                    <h:inputSecret a:placeholder="#{dialog['inputs.register.password.placeholder']}"/>
+                                <label><h:outputText value="#{dialog['inputs.register.username.label']}"/></label>
+                                <h:panelGroup id="username" layout="block" styleClass="ui left icon input #{registerController.userInput.valid ? '' : 'error'}">
+                                    <i class="user icon"/>
+                                    <h:inputText id="userInput" a:placeholder="#{dialog['inputs.register.username.placeholder']}"
+                                                 binding="#{registerController.userInput}" value="#{registerController.user.username}">
+                                        <f:ajax delay="400" render="username email errorBlock"
+                                                execute="@this emailInput"
+                                                onevent="onUsernameChange"/>
+                                        <f:validator validatorId="availabilityValidator"/>
+                                    </h:inputText>
                                 </h:panelGroup>
                             </h:panelGroup>
                         </h:panelGroup>
                         <h:panelGroup layout="block" styleClass="two fields">
                             <h:panelGroup layout="block" styleClass="required field">
-                                <label><h:outputText value="#{dialog['inputs.register.username.label']}"/></label>
+                                <label><h:outputText value="#{dialog['inputs.register.password.label']}"/></label>
                                 <h:panelGroup layout="block" styleClass="ui left icon input">
-                                    <i class="user icon"/>
-                                    <h:inputText id="username" a:placeholder="#{dialog['inputs.register.username.placeholder']}"
-                                                 value="#{registerController.username}">
-                                        <f:ajax listener="#{registerController.checkUsernameAvailability}" render="username usernameAvailability"/>
-                                    </h:inputText>
+                                    <i class="lock icon"/>
+                                    <h:inputSecret id="password" match="#{registerController.confirmPasswordInput}"
+                                                   value="#{registerController.user.password}"
+                                                   a:placeholder="#{dialog['inputs.register.password.placeholder']}">
+                                        <f:validator validatorId="matchPasswordValidator"/>
+                                    </h:inputSecret>
                                 </h:panelGroup>
                             </h:panelGroup>
-                            <h:outputText id="usernameAvailability" value="#{registerController.usernameAvailable ? 'available' : 'taken'}"/>
+                             <h:panelGroup layout="block" styleClass="required field">
+                                <label><h:outputText value="#{dialog['inputs.register.confirmPassword.label']}"/></label>
+                                <h:panelGroup layout="block" styleClass="ui left icon input">
+                                    <i class="lock icon"/>
+                                    <h:inputSecret id="confirmPassword" value="#{registerController.confirmPassword}"
+                                                   a:placeholder="#{dialog['inputs.register.confirmPassword.placeholder']}"
+                                                   binding="#{registerController.confirmPasswordInput}"/>
+                                </h:panelGroup>
+                            </h:panelGroup>
                         </h:panelGroup>
-                        <p:commandButton styleClass="ui primary submit button" value="#{dialog['buttons.submit']}"/>
+                        <p:commandButton id="submit" action="#{registerController.register}"
+                                         ajax="false"
+                                         styleClass="ui primary submit button"
+                                         value="#{dialog['buttons.submit']}"/>
                     </h:form>
+                </h:panelGroup>
+                <h:panelGroup id="errorBlock" layout="block">
+                    <h:panelGroup layout="block" styleClass="ui left aligned error message" rendered="#{registerController.wrong}">
+                        <h:panelGroup styleClass="header" layout="block">
+                            <h:outputText value="#{dialog['messages.errorOnRegister']}"/>
+                        </h:panelGroup>
+                        <h:messages globalOnly="false" styleClass="list"/>
+                    </h:panelGroup>
                 </h:panelGroup>
             </h:panelGroup>
         </ui:define>
         <ui:define name="scripts">
             <script type="application/javascript">
+                var ajaxStatus = {busy: false};
+
+                jsf.ajax.addOnEvent(function onStatusChange(data) {
+                    var status = data.status;
+                    if (status &amp;&amp; status !== 'complete' &amp;&amp; status !== 'success') {
+                        ajaxStatus.busy = true;
+                    } else if (status === 'success') {
+                        ajaxStatus.busy = false;
+                    }
+                });
+
                 function disableSubmitButton() {
                     $('#register\\:submit').addClass('loading disabled')
                 }
+
+                function checkLoading(status, element) {
+                    switch (status) {
+                        case 'begin':
+                            element.addClass('loading');
+                            break;
+                        case 'success':
+                            element.removeClass('loading');
+                            break;
+                    }
+                }
+
+                function onUsernameChange(data) {
+                    checkLoading(data.status, $('#register\\:username'));
+                }
+
+                function onEmailChange(data) {
+                    checkLoading(data.status, $('#register\\:email'));
+                }
+
+                $(document).on('keydown', function(e) {
+                    if (ajaxStatus.busy) {
+                        event.preventDefault();
+                    }
+                })
             </script>
         </ui:define>
     </ui:composition>

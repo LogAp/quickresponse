@@ -1,31 +1,76 @@
 package me.jaybios.quickresponse.controllers;
 
-import me.jaybios.quickresponse.services.UserService;
+import me.jaybios.quickresponse.models.User;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import javax.enterprise.context.RequestScoped;
+import javax.enterprise.event.Event;
+import javax.faces.component.UIInput;
+import javax.faces.context.FacesContext;
+import javax.inject.Inject;
+import javax.inject.Named;
 
-@ManagedBean
+@Named
 @RequestScoped
 public class RegisterController {
-    private String username;
-    private boolean usernameAvailable = true;
 
-    private UserService userService = new UserService();
+    @Inject
+    private Event<User> userEvent;
 
-    public String getUsername() {
-        return username;
+    @Inject
+    private User user;
+
+    private String confirmPassword;
+
+    private UIInput emailInput;
+    private UIInput userInput;
+    private UIInput confirmPasswordInput;
+
+    public User getUser() {
+        return user;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setUser(User user) {
+        this.user = user;
     }
 
-    public boolean isUsernameAvailable() {
-        return usernameAvailable;
+    public String getConfirmPassword() {
+        return confirmPassword;
     }
 
-    public void checkUsernameAvailability() {
-        usernameAvailable = userService.findByUsername(username) == null;
+    public void setConfirmPassword(String confirmPassword) {
+        this.confirmPassword = confirmPassword;
+    }
+
+    public UIInput getEmailInput() {
+        return emailInput;
+    }
+
+    public void setEmailInput(UIInput emailInput) {
+        this.emailInput = emailInput;
+    }
+
+    public UIInput getUserInput() {
+        return userInput;
+    }
+
+    public void setUserInput(UIInput userInput) {
+        this.userInput = userInput;
+    }
+
+    public UIInput getConfirmPasswordInput() {
+        return confirmPasswordInput;
+    }
+
+    public void setConfirmPasswordInput(UIInput confirmPasswordInput) {
+        this.confirmPasswordInput = confirmPasswordInput;
+    }
+
+    public boolean isWrong() {
+        return !FacesContext.getCurrentInstance().getMessageList().isEmpty();
+    }
+
+    public String register() {
+        userEvent.fire(user);
+        return "pretty:view-register-activate";
     }
 }
