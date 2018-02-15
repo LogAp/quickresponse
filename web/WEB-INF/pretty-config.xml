@@ -36,6 +36,12 @@
         <view-id value="/registerActivate.xhtml"/>
     </url-mapping>
 
+    <url-mapping id="view-result">
+        <pattern value="/activate/#{token}"/>
+        <view-id value="/activate.xhtml"/>
+        <action>#{activateController.checkToken}</action>
+    </url-mapping>
+
     <url-mapping id="view-login">
         <pattern value="/login"/>
         <view-id value="/login.xhtml"/>

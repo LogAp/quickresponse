@@ -23,6 +23,7 @@ public class ApplicationController {
     private Manifest manifest = null;
     private Boolean debug;
     private String version;
+    private String uri;
     private List<SelectItem> supportedLocales;
 
     @PostConstruct
@@ -33,8 +34,13 @@ public class ApplicationController {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        uri = System.getenv("APPLICATION_URI");
+        if (uri == null)
+            uri = "http://localhost:8081";
+
         String debugEnv = System.getenv("DEBUG");
-        debug =  debugEnv != null && debugEnv.equals("true");
+        debug = debugEnv != null && debugEnv.equals("true");
 
         String stagingEnv = System.getenv("STAGING");
         Boolean staging = stagingEnv != null && stagingEnv.equals("true");
@@ -57,6 +63,10 @@ public class ApplicationController {
 
     public String getVersion() {
         return version;
+    }
+
+    public String getUri() {
+        return uri;
     }
 
     public List<SelectItem> getSupportedLocales() {

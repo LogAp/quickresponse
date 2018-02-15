@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core">
+<f:view>
+    <ui:composition template="templates/layout.xhtml">
+        <ui:define name="title"><h:outputText value="#{dialog['titles.register.activate']}"/> | </ui:define>
+        <ui:define name="content">
+            <h:panelGroup layout="block" styleClass="column">
+                <h:panelGroup layout="block" styleClass="ui raised segment">
+                    <h:panelGroup layout="block" rendered="#{activateController.valid}">
+                        <h2>Your account has been activated!</h2>
+                        <p><h:link outcome="pretty:view-login" value="Click here"/> to login.</p>
+                    </h:panelGroup>
+                    <h:panelGroup layout="block" rendered="#{activateController.invalid}">
+                        <h2>Activation token is invalid!</h2>
+                        <p>This activation token is invalid or no longer exist.</p>
+                    </h:panelGroup>
+                    <h:panelGroup layout="block" rendered="#{activateController.active}">
+                        <h2>Your account is already active!</h2>
+                        <p><h:link outcome="pretty:view-login" value="Click here"/> to login.</p>
+                    </h:panelGroup>
+                    <h:panelGroup layout="block" rendered="#{activateController.expired}">
+                        <h:form>
+                            <h2>Activation token has been expired!</h2>
+                            <p><h:commandLink value="Click here" action="#{activateController.sendToken}"/> to send another activation token to your e-mail account.</p>
+                        </h:form>
+                    </h:panelGroup>
+                </h:panelGroup>
+            </h:panelGroup>
+        </ui:define>
+    </ui:composition>
+</f:view>
+</html>

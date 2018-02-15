@@ -16,10 +16,18 @@ public class ActivationToken {
 
     private UUID token;
 
-    @OneToOne(optional = false)
+    @ManyToOne(optional = false)
     private User user;
 
     private Date expiryDate;
+
+    public ActivationToken() {
+        super();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(new Timestamp(calendar.getTime().getTime()));
+        calendar.add(Calendar.MINUTE, EXPIRATION_TIME);
+        expiryDate = new Date(calendar.getTime().getTime());
+    }
 
     public Long getId() {
         return id;
@@ -49,11 +57,12 @@ public class ActivationToken {
         this.expiryDate = expiryDate;
     }
 
-    public ActivationToken() {
-        super();
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(new Timestamp(calendar.getTime().getTime()));
-        calendar.add(Calendar.MINUTE, EXPIRATION_TIME);
-        expiryDate = new Date(calendar.getTime().getTime());
+    public Boolean hasExpired() {
+        return new Date().after(expiryDate);
+    }
+
+    @Override
+    public String toString() {
+        return token.toString();
     }
 }

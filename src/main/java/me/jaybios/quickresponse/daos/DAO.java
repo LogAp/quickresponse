@@ -6,7 +6,7 @@ import java.util.List;
 public interface DAO<T, I extends Serializable> {
     List<T> findAll();
     T findByID(I id);
-    T findByProperty(String property, String value);
+    T findByProperty(String property, Object value);
     void persist(T entity);
     void update(T entity);
     void delete(T entity);

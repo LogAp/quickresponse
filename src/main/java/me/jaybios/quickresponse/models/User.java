@@ -6,11 +6,8 @@ import me.jaybios.quickresponse.util.hashers.PBKDF2SHA256Hasher;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
 
-import javax.enterprise.inject.Default;
-import javax.enterprise.inject.Model;
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-import javax.validation.constraints.Pattern;
 import java.util.List;
 import java.util.UUID;
 

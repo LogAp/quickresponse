@@ -1,12 +1,12 @@
 package me.jaybios.quickresponse.util;
 
-import javax.faces.bean.ManagedBean;
-import javax.faces.bean.RequestScoped;
+import javax.enterprise.context.RequestScoped;
 import javax.faces.context.FacesContext;
+import javax.inject.Named;
 import java.io.PrintWriter;
 import java.io.StringWriter;
 
-@ManagedBean
+@Named
 @RequestScoped
 public class ErrorHandler {
     private Object getFromRequest(String key) {

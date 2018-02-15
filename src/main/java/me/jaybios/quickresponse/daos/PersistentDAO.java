@@ -39,7 +39,7 @@ public class PersistentDAO<T, I extends Serializable> implements DAO<T, I> {
     }
 
     @Override
-    public T findByProperty(String property, String value) {
+    public T findByProperty(String property, Object value) {
         TypedQuery<T> query = currentSession
                 .createQuery("select e from " + getEntityName() + " e where " + property + " = :pvalue", entityClass);
         query.setParameter("pvalue", value);
