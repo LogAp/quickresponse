@@ -5,9 +5,12 @@ import me.jaybios.quickresponse.util.hashers.Hasher;
 import me.jaybios.quickresponse.util.hashers.PBKDF2SHA256Hasher;
 import org.hibernate.annotations.GenericGenerator;
 import org.hibernate.annotations.Type;
+import org.hibernate.validator.constraints.Email;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
+import javax.validation.constraints.Pattern;
+import java.io.Serializable;
 import java.util.List;
 import java.util.UUID;
 
@@ -17,7 +20,7 @@ import java.util.UUID;
 @DiscriminatorColumn(name = "admin", length = 1, discriminatorType = DiscriminatorType.INTEGER)
 @DiscriminatorValue("0")
 @Table(name = "\"user\"")
-public class User implements Secure {
+public class User implements Secure, Serializable {
     @Id
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
@@ -25,10 +28,12 @@ public class User implements Secure {
     @Column(unique = true, updatable = false, nullable = false)
     private UUID uuid;
 
+    @Pattern(regexp = "^[_A-Za-z0-9-]{5,25}", message = "{register.username.pattern}")
     @NotNull
     @Column(unique = true, nullable = false)
     private String username;
 
+    @Email(message = "{register.email.pattern}")
     @NotNull
     @Column(unique = true, nullable = false)
     private String email;

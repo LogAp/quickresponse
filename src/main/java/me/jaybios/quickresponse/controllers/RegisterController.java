@@ -2,16 +2,17 @@ package me.jaybios.quickresponse.controllers;
 
 import me.jaybios.quickresponse.models.User;
 
-import javax.enterprise.context.RequestScoped;
 import javax.enterprise.event.Event;
 import javax.faces.component.UIInput;
 import javax.faces.context.FacesContext;
+import javax.faces.view.ViewScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import java.io.Serializable;
 
 @Named
-@RequestScoped
-public class RegisterController {
+@ViewScoped
+public class RegisterController implements Serializable {
 
     @Inject
     private Event<User> userEvent;

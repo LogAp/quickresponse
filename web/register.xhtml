@@ -22,10 +22,9 @@
                                                  a:placeholder="#{dialog['inputs.register.email.placeholder']}"
                                                  a:type="email" value="#{registerController.user.email}">
                                         <f:ajax delay="400" render="email username errorBlock"
-                                                execute="@this userInput"
+                                                execute="@this"
                                                 onevent="onEmailChange"/>
                                         <f:validator validatorId="availabilityValidator"/>
-                                        <f:validator validatorId="emailValidator"/>
                                     </h:inputText>
                                 </h:panelGroup>
                             </h:panelGroup>
@@ -36,7 +35,7 @@
                                     <h:inputText id="userInput" a:placeholder="#{dialog['inputs.register.username.placeholder']}"
                                                  binding="#{registerController.userInput}" value="#{registerController.user.username}">
                                         <f:ajax delay="400" render="username email errorBlock"
-                                                execute="@this emailInput"
+                                                execute="@this"
                                                 onevent="onUsernameChange"/>
                                         <f:validator validatorId="availabilityValidator"/>
                                     </h:inputText>
