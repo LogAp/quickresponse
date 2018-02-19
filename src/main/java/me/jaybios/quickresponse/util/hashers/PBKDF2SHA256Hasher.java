@@ -3,13 +3,14 @@ package me.jaybios.quickresponse.util.hashers;
 import javax.crypto.SecretKey;
 import javax.crypto.SecretKeyFactory;
 import javax.crypto.spec.PBEKeySpec;
+import java.io.Serializable;
 import java.nio.charset.Charset;
 import java.security.NoSuchAlgorithmException;
 import java.security.spec.InvalidKeySpecException;
 import java.security.spec.KeySpec;
 import java.util.Base64;
 
-public class PBKDF2SHA256Hasher implements Hasher {
+public class PBKDF2SHA256Hasher implements Hasher, Serializable {
     private String getEncodedHash(String value, String salt, int iterations) {
         SecretKeyFactory keyFactory;
         try {

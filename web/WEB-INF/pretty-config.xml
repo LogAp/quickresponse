@@ -44,7 +44,7 @@
 
     <url-mapping id="view-login">
         <pattern value="/login"/>
-        <view-id value="/login.xhtml"/>
+        <view-id value="unauthenticated/login.xhtml"/>
     </url-mapping>
 
 </pretty-config>

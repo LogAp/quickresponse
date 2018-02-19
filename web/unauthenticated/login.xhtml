@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:p="http://primefaces.org/ui">
+<f:view>
+    <ui:composition template="../templates/layout.xhtml">
+        <ui:define name="title"><h:outputText value="#{dialog['titles.login']}"/> | </ui:define>
+        <ui:define name="content">
+            <h:panelGroup layout="block" styleClass="column">
+                <h:form id="login" styleClass="ui large form">
+                    <h:panelGroup layout="block" styleClass="ui raised segment">
+                        <h:panelGroup layout="block" styleClass="two fields">
+                            <h:panelGroup layout="block" styleClass="required field">
+                                <!--suppress ELValidationInJSP -->
+                                <h:panelGroup layout="block" styleClass="ui left icon input">
+                                    <i class="user icon"/>
+                                    <h:inputText id="username" required="true"
+                                                 value="#{authenticationController.username}"
+                                                 a:placeholder="#{dialog['inputs.username.placeholder']}"
+                                                 label="#{dialog['inputs.username.label']}"/>
+                                </h:panelGroup>
+                            </h:panelGroup>
+                            <h:panelGroup layout="block" styleClass="required field">
+                                <!--suppress ELValidationInJSP -->
+                                <h:panelGroup layout="block" styleClass="ui left icon input">
+                                    <i class="lock icon"/>
+                                    <h:inputSecret id="password" required="true"
+                                                 value="#{authenticationController.password}"
+                                                 a:placeholder="#{dialog['inputs.register.password.placeholder']}"
+                                                 label="#{dialog['inputs.register.password.label']}"/>
+                                </h:panelGroup>
+                            </h:panelGroup>
+                        </h:panelGroup>
+                        <p:commandButton id="submit" action="#{authenticationController.login}"
+                                         ajax="false" styleClass="ui primary submit fluid button"
+                                         value="#{dialog['buttons.submit']}"/>
+                    </h:panelGroup>
+                </h:form>
+            </h:panelGroup>
+        </ui:define>
+    </ui:composition>
+</f:view>
+</html>

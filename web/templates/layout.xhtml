@@ -25,10 +25,18 @@
                 <h:panelGroup styleClass="column">
                     <h:panelGroup styleClass="ui fluid stackable menu">
                         <h:link styleClass="header item" outcome="pretty:view-home" value="Quick Response"/>
-                        <h:link styleClass="item" outcome="pretty:view-register"
-                                value="#{dialog['links.register']}"/>
-                        <h:link styleClass="item" outcome="pretty:view-login"
-                                value="#{dialog['links.login']}"/>
+                        <h:panelGroup layout="block" rendered="#{!sessionController.userAuthenticated}">
+                            <h:link styleClass="item" outcome="pretty:view-register"
+                                    value="#{dialog['links.register']}"/>
+                            <h:link styleClass="item" outcome="pretty:view-login"
+                                    value="#{dialog['links.login']}"/>
+                        </h:panelGroup>
+                        <h:panelGroup layout="block" rendered="#{sessionController.userAuthenticated}">
+                            <h:form>
+                                <h:commandLink styleClass="item" action="#{authenticationController.logout}"
+                                               value="#{dialog['links.logout']}"/>
+                            </h:form>
+                        </h:panelGroup>
                         <ui:insert name="header">
                         </ui:insert>
                         <h:panelGroup styleClass="right menu">

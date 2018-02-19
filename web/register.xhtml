@@ -29,10 +29,10 @@
                                 </h:panelGroup>
                             </h:panelGroup>
                             <h:panelGroup layout="block" styleClass="required field">
-                                <label><h:outputText value="#{dialog['inputs.register.username.label']}"/></label>
+                                <label><h:outputText value="#{dialog['inputs.username.label']}"/></label>
                                 <h:panelGroup id="username" layout="block" styleClass="ui left icon input #{registerController.userInput.valid ? '' : 'error'}">
                                     <i class="user icon"/>
-                                    <h:inputText id="userInput" a:placeholder="#{dialog['inputs.register.username.placeholder']}"
+                                    <h:inputText id="userInput" a:placeholder="#{dialog['inputs.username.placeholder']}"
                                                  binding="#{registerController.userInput}" value="#{registerController.user.username}">
                                         <f:ajax delay="400" render="username email errorBlock"
                                                 execute="@this"
