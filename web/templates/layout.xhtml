@@ -32,6 +32,7 @@
                                     value="#{dialog['links.login']}"/>
                         </h:panelGroup>
                         <h:panelGroup layout="block" rendered="#{sessionController.userAuthenticated}">
+                            <h:link styleClass="item" outcome="pretty:view-codes" value="#{dialog['links.codes']}"/>
                             <h:form>
                                 <h:commandLink styleClass="item" action="#{authenticationController.logout}"
                                                value="#{dialog['links.logout']}"/>

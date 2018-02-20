@@ -22,6 +22,9 @@ public class Code {
 
     private String uri;
 
+    @ManyToOne
+    private User user;
+
     public UUID getUuid() {
         return uuid;
     }
@@ -32,6 +35,14 @@ public class Code {
 
     public void setUri(String uri) {
         this.uri = uri;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
     }
 
     public QRCode generateQR() {

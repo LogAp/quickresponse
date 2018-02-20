@@ -49,9 +49,6 @@ public class User implements Secure, Serializable {
     @Column(nullable = false)
     private String password;
 
-    @OneToMany(fetch = FetchType.LAZY)
-    private List<Code> codes;
-
     private boolean active;
 
     @Transient
@@ -61,24 +58,12 @@ public class User implements Secure, Serializable {
         return uuid;
     }
 
-    public List<Code> getCodes() {
-        return codes;
-    }
-
     public String getPassword() {
         return password;
     }
 
     public void setPassword(String password) {
         this.password = password;
-    }
-
-    public void setCodes(List<Code> codes) {
-        this.codes = codes;
-    }
-
-    public void addCode(Code code) {
-        codes.add(code);
     }
 
     @Override

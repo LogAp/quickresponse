@@ -2,11 +2,12 @@ package me.jaybios.quickresponse.controllers;
 
 import me.jaybios.quickresponse.controllers.requests.CodeRequest;
 import me.jaybios.quickresponse.controllers.requests.MailRequest;
+import me.jaybios.quickresponse.models.AuthenticatedUser;
 import me.jaybios.quickresponse.models.Code;
 import me.jaybios.quickresponse.models.SecureCode;
+import me.jaybios.quickresponse.models.User;
 import me.jaybios.quickresponse.services.CodeService;
 import me.jaybios.quickresponse.services.ResourceService;
-import me.jaybios.quickresponse.services.SecureCodeService;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
@@ -22,8 +23,8 @@ public class CodeController {
     private ResourceService<Code, UUID> codeService;
 
     @Inject
-    @SecureCodeService
-    private ResourceService<SecureCode, UUID> secureCodeService;
+    @AuthenticatedUser
+    private User user;
 
     private String uuid;
 
@@ -57,32 +58,28 @@ public class CodeController {
         this.uuid = uuid;
     }
 
-    private void createSecure() {
-        SecureCode code = new SecureCode();
+    public String store() {
+        Code code;
+        code = codeRequest.getSecure() ? createSecure() : createUnsecure();
         code.setUri(codeRequest.getUri());
-        code.setPassword(codeRequest.getPassword());
-        secureCodeService.store(code);
-        uuid = code.getUuid().toString();
-    }
-
-    private void createUnsecure() {
-        Code code = new Code();
-        code.setUri(codeRequest.getUri());
+        code.setUser(user);
         codeService.store(code);
         uuid = code.getUuid().toString();
-    }
-
-    public String store() {
-        if (codeRequest.getSecure()) {
-            createSecure();
-        } else {
-            createUnsecure();
-        }
         return "pretty:view-result";
     }
 
     public String storeMail() {
         codeRequest.setUri(mailRequest.getUri());
         return store();
+    }
+
+    private Code createSecure() {
+        SecureCode code = new SecureCode();
+        code.setPassword(codeRequest.getPassword());
+        return code;
+    }
+
+    private Code createUnsecure() {
+        return new Code();
     }
 }
