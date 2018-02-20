@@ -6,12 +6,15 @@ import me.jaybios.quickresponse.models.AuthenticatedUser;
 import me.jaybios.quickresponse.models.Code;
 import me.jaybios.quickresponse.models.SecureCode;
 import me.jaybios.quickresponse.models.User;
+import me.jaybios.quickresponse.producers.HttpParam;
 import me.jaybios.quickresponse.services.CodeService;
 import me.jaybios.quickresponse.services.ResourceService;
+import me.jaybios.quickresponse.services.UserService;
 
 import javax.enterprise.context.RequestScoped;
 import javax.inject.Inject;
 import javax.inject.Named;
+import java.util.List;
 import java.util.UUID;
 
 @Named
@@ -23,10 +26,16 @@ public class CodeController {
     private ResourceService<Code, UUID> codeService;
 
     @Inject
+    private UserService userService;
+
+    @Inject
     @AuthenticatedUser
     private User user;
 
+    @Inject @HttpParam
     private String uuid;
+
+    private String qrcode;
 
     @Inject
     private CodeRequest codeRequest;
@@ -56,6 +65,41 @@ public class CodeController {
 
     public void setUuid(String uuid) {
         this.uuid = uuid;
+    }
+
+    public String getQrcode() {
+        return qrcode;
+    }
+
+    public List<Code> getUserCodes() {
+        return userService.getCodes(user);
+    }
+
+    public String editCode(Code code) {
+        uuid = code.getUuid().toString();
+        return "pretty:view-code-edit";
+    }
+
+    public void removeCode(Code code) {
+        codeService.deleteById(code.getUuid());
+    }
+
+    public String findUserCode() {
+        Code code;
+        try {
+            code = codeService.findById(UUID.fromString(uuid));
+            if (!code.getUser().getUuid().equals(user.getUuid())) {
+                return "pretty:view-home";
+            }
+        } catch(IllegalArgumentException | NullPointerException e) {
+            e.printStackTrace();
+            return "pretty:view-home";
+        }
+
+        qrcode = code.generateImage();
+        codeRequest = CodeRequest.from(code);
+
+        return null;
     }
 
     public String store() {

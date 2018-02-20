@@ -3,10 +3,12 @@ package me.jaybios.quickresponse.services;
 import me.jaybios.quickresponse.daos.ActivationTokenDAO;
 import me.jaybios.quickresponse.daos.PersistentDAO;
 import me.jaybios.quickresponse.models.ActivationToken;
+import me.jaybios.quickresponse.models.Code;
 import me.jaybios.quickresponse.models.User;
 
 import javax.inject.Inject;
 import javax.persistence.EntityManager;
+import java.util.List;
 import java.util.UUID;
 
 public class UserService extends ResourceService<User, UUID> {
@@ -36,5 +38,9 @@ public class UserService extends ResourceService<User, UUID> {
         activationTokenDAO.persist(activationToken);
         activationTokenDAO.commit();
         return activationToken;
+    }
+
+    public List<Code> getCodes(User user) {
+        return dao.listRelationshipEntities(user, Code.class);
     }
 }

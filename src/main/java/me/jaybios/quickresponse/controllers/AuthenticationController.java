@@ -49,6 +49,6 @@ public class AuthenticationController {
 
     public String logout() {
         session.destroy();
-        return "pretty";
+        return "pretty:view-home";
     }
 }

@@ -51,6 +51,9 @@ public class User implements Secure, Serializable {
 
     private boolean active;
 
+    @OneToMany(mappedBy = "user")
+    private List<Code> codes;
+
     @Transient
     private Hasher hasher = new PBKDF2SHA256Hasher();
 
@@ -93,6 +96,14 @@ public class User implements Secure, Serializable {
 
     public void setActive(boolean active) {
         this.active = active;
+    }
+
+    public List<Code> getCodes() {
+        return codes;
+    }
+
+    public void setCodes(List<Code> codes) {
+        this.codes = codes;
     }
 
     public User() {

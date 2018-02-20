@@ -14,7 +14,7 @@
     </url-mapping>
 
     <url-mapping id="view-result">
-        <pattern value="/result/#{uuid : codeController.uuid}"/>
+        <pattern value="/code/#{uuid : codeController.uuid}"/>
         <view-id value="/result.xhtml"/>
         <action>#{resultController.findCode}</action>
     </url-mapping>
@@ -45,6 +45,17 @@
     <url-mapping id="view-login">
         <pattern value="/login"/>
         <view-id value="unauthenticated/login.xhtml"/>
+    </url-mapping>
+
+    <url-mapping id="view-codes">
+        <pattern value="/links"/>
+        <view-id value="authenticated/codes.xhtml"/>
+    </url-mapping>
+
+    <url-mapping id="view-code-edit">
+        <pattern value="/code/#{uuid : codeController.uuid}/edit"/>
+        <view-id value="/authenticated/codeEdit.xhtml"/>
+        <action>#{codeController.findUserCode}</action>
     </url-mapping>
 
 </pretty-config>

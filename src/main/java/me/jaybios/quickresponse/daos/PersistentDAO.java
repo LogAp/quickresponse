@@ -48,6 +48,13 @@ public class PersistentDAO<T, I extends Serializable> implements DAO<T, I> {
     }
 
     @Override
+    public <R> List<R> listRelationshipEntities(T entity, Class<R> relationshipClass) {
+        TypedQuery<R> query = currentSession
+                .createQuery("select r from " +  relationshipClass.getSimpleName() + " r join fetch r." + getEntityNameAsAttribute(), relationshipClass);
+        return query.getResultList();
+    }
+
+    @Override
     public void persist(T entity) {
         currentSession.persist(entity);
     }
@@ -73,5 +80,9 @@ public class PersistentDAO<T, I extends Serializable> implements DAO<T, I> {
     private String getEntityName() {
         if (entityClass == null) return null;
         return entityClass.getSimpleName();
+    }
+
+    private String getEntityNameAsAttribute() {
+        return getEntityName() == null ? null : getEntityName().toLowerCase();
     }
 }

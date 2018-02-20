@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:a="http://xmlns.jcp.org/jsf/passthrough"
+      xmlns:p="http://java.sun.com/jsf/html">
+<f:view>
+    <ui:composition template="../templates/layout.xhtml">
+        <ui:define name="title"><h:outputText value="#{dialog['titles.login']}"/> | </ui:define>
+        <ui:param name="uriHasError" value="#{not empty facesContext.getMessageList('code:uri')}"/>
+        <ui:define name="content">
+            <h:panelGroup layout="block" styleClass="column">
+                <h:panelGroup layout="block" styleClass="ui raised segment">
+                    <h:panelGroup layout="block" styleClass="ui grid">
+                        <h:panelGroup layout="block" styleClass="ui row">
+                            <h:panelGroup layout="block" styleClass="ui column">
+                                <h:panelGroup layout="block" styleClass="ui centered card">
+                                    <h:panelGroup layout="block" styleClass="image">
+                                        <img src="#{codeController.qrcode}" alt="QR Code"/>
+                                    </h:panelGroup>
+                                </h:panelGroup>
+                            </h:panelGroup>
+                        </h:panelGroup>
+                        <h:panelGroup layout="block" styleClass="ui row">
+                            <h:panelGroup layout="block" styleClass="column">
+                                <h:form id="code" styleClass="ui form">
+                                    <h:panelGroup layout="block" styleClass="two fields">
+                                        <h:panelGroup layout="block" styleClass="field">
+                                            <!--suppress ELValidationInJSP -->
+                                            <h:panelGroup layout="block" styleClass="ui left icon input #{uriHasError ? 'error' : ''}">
+                                                <i class="external link icon"/>
+                                                <h:inputText title="Link" id="uri" required="true"
+                                                             value="#{codeController.codeRequest.uri}"
+                                                             a:placeholder="#{dialog['inputs.link.placeholder']}" a:type="url"
+                                                             label="Link" styleClass="code padding"/>
+                                            </h:panelGroup>
+                                        </h:panelGroup>
+                                        <h:panelGroup layout="block" styleClas="field">
+                                            <ui:include src="../templates/components/passwordInput.xhtml"/>
+                                        </h:panelGroup>
+                                    </h:panelGroup>
+                                </h:form>
+                            </h:panelGroup>
+                        </h:panelGroup>
+                    </h:panelGroup>
+                </h:panelGroup>
+            </h:panelGroup>
+        </ui:define>
+    </ui:composition>
+</f:view>
+</html>

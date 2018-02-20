@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN"
+        "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:f="http://xmlns.jcp.org/jsf/core" xmlns:p="http://java.sun.com/jsf/html">
+<f:view>
+    <ui:composition template="../templates/layout.xhtml">
+        <ui:define name="title"><h:outputText value="#{dialog['titles.codes']}"/> | </ui:define>
+        <ui:define name="content">
+            <h:panelGroup layout="block" styleClass="column">
+                <h:panelGroup layout="block" styleClass="ui raised segment">
+                    <h:form id="userCodes">
+                        <h:panelGroup rendered="#{not empty codeController.userCodes}">
+                                <h:dataTable id="table" value="#{codeController.userCodes}" var="code" styleClass="ui fluid table">
+                                    <h:column>
+                                        <f:facet name="header">URI</f:facet>
+                                        <h4 class="ui image header">
+                                            <img src="#{code.generateImage()}" alt="#{code.uri} - Gen Code" class="ui massive image"/>
+                                            <h:panelGroup layout="block" styleClass="content">
+                                                <a href="#{code.uri}">#{code.uri}</a>
+                                            </h:panelGroup>
+                                        </h4>
+                                    </h:column>
+                                    <h:column>
+                                        <f:facet name="header"><h:outputText value="#{dialog['tables.code.actions']}"/></f:facet>
+                                        <h:panelGroup layout="block" styleClass="ui small buttons">
+                                            <p:commandButton styleClass="ui basic blue button" action="#{codeController.editCode(code)}" value="#{dialog['tables.code.actions.edit']}"/>
+                                            <p:commandButton styleClass="ui basic red button" action="#{codeController.removeCode(code)}" value="#{dialog['tables.code.actions.remove']}" update="table"/>
+                                        </h:panelGroup>
+                                    </h:column>
+                                </h:dataTable>
+                        </h:panelGroup>
+                        <h:panelGroup rendered="#{empty codeController.userCodes}">
+                            <h2><h:outputText value="#{dialog['tables.code.empty']}"/></h2>
+                        </h:panelGroup>
+                    </h:form>
+                </h:panelGroup>
+            </h:panelGroup>
+        </ui:define>
+    </ui:composition>
+</f:view>
+</html>
