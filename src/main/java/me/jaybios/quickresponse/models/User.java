@@ -106,6 +106,11 @@ public class User implements Secure, Serializable {
         this.codes = codes;
     }
 
+    @Override
+    public boolean isSecure() {
+        return true;
+    }
+
     public User() {
         super();
         active = false;

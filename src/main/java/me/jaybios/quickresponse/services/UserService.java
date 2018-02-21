@@ -41,6 +41,6 @@ public class UserService extends ResourceService<User, UUID> {
     }
 
     public List<Code> getCodes(User user) {
-        return dao.listRelationshipEntities(user, Code.class);
+        return dao.listRelationshipEntities("uuid", user.getUuid(), user, Code.class);
     }
 }

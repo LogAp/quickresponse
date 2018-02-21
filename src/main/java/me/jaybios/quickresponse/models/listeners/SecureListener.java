@@ -4,13 +4,16 @@ import me.jaybios.quickresponse.models.Secure;
 import org.apache.commons.codec.binary.Base64;
 
 import javax.persistence.PrePersist;
+import javax.persistence.PreUpdate;
 import java.security.SecureRandom;
 import java.util.Random;
 
 public class SecureListener {
-    @PrePersist
-    public void securePrePersist(Object secure) {
-        hashPassword((Secure)secure);
+    @PreUpdate
+    public void securePrePersist(Object object) {
+        Secure secureObject = (Secure)object;
+        if (secureObject.isSecure())
+            hashPassword(secureObject);
     }
 
     private void hashPassword(Secure secure) {

@@ -48,10 +48,10 @@ public class PersistentDAO<T, I extends Serializable> implements DAO<T, I> {
     }
 
     @Override
-    public <R> List<R> listRelationshipEntities(T entity, Class<R> relationshipClass) {
+    public <R, V> List<R> listRelationshipEntities(String idColumn, V idValue, T entity, Class<R> relationshipClass) {
         TypedQuery<R> query = currentSession
-                .createQuery("select r from " +  relationshipClass.getSimpleName() + " r join fetch r." + getEntityNameAsAttribute(), relationshipClass);
-        return query.getResultList();
+                .createQuery("select r from " +  relationshipClass.getSimpleName() + " r join fetch r." + getEntityNameAsAttribute() + " e where e." + idColumn + " = :ivalue", relationshipClass);
+        return query.setParameter("ivalue", idValue).getResultList();
     }
 
     @Override

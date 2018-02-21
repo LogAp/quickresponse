@@ -6,4 +6,5 @@ public interface Secure {
     String getPassword();
     void setPassword(String password);
     Hasher getHasher();
+    boolean isSecure();
 }

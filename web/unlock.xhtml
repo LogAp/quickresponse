@@ -11,17 +11,23 @@
         <ui:define name="content">
             <h:panelGroup styleClass="column" layout="block">
                 <h:panelGroup styleClass="ui raised segment" layout="block">
-                    <h:form id="unlock" class="ui form" onsubmit="disableButton()">
-                        <h:panelGroup styleClass="field" layout="block">
-                            <h:panelGroup styleClass="ui left icon action fluid input #{unlockController.invalid ? 'error' : ''}">
-                                <i class="lock icon"/>
-                                <h:inputSecret value="#{unlockController.password}"
-                                               a:placeholder="#{dialog['inputs.password.placeholder']}"/>
-                                <p:commandButton id="button" styleClass="ui blue small button" ajax="false"
-                                                 action="#{unlockController.unlock}" value="#{dialog['buttons.unlock']}"/>
+                    <h:panelGroup layout="block" styleClass="ui grid">
+                        <h:panelGroup layout="block" styleClass="row">
+                            <h:panelGroup layout="block" styleClass="column">
+                                <h:form id="unlock" class="ui form" onsubmit="disableButton()">
+                                    <h:panelGroup styleClass="field" layout="block">
+                                        <h:panelGroup styleClass="ui left icon action fluid input #{unlockController.invalid ? 'error' : ''}">
+                                            <i class="lock icon"/>
+                                            <h:inputSecret value="#{unlockController.password}"
+                                                           a:placeholder="#{dialog['inputs.password.placeholder']}"/>
+                                            <p:commandButton id="button" styleClass="ui blue small button" ajax="false"
+                                                             action="#{unlockController.unlock}" value="#{dialog['buttons.unlock']}"/>
+                                        </h:panelGroup>
+                                    </h:panelGroup>
+                                </h:form>
                             </h:panelGroup>
                         </h:panelGroup>
-                    </h:form>
+                    </h:panelGroup>
                     <ui:include src="templates/components/versionLabel.xhtml"/>
                 </h:panelGroup>
                 <h:panelGroup styleClass="ui negative message" layout="block" rendered="#{unlockController.invalid}">
