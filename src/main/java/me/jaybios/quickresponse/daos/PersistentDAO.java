@@ -65,6 +65,14 @@ public class PersistentDAO<T, I extends Serializable> implements DAO<T, I> {
     }
 
     @Override
+    public <U, V> void updateType(String idColumn, U id, String typeColumn, V typeValue) {
+        currentSession.createQuery("update " + getEntityName() + " set " + typeColumn + " = :tvalue where " + idColumn + " = :eid")
+                .setParameter("tvalue", typeValue)
+                .setParameter("eid", id)
+                .executeUpdate();
+    }
+
+    @Override
     public void delete(T entity) {
         currentSession.remove(entity);
     }

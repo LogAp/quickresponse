@@ -9,11 +9,7 @@
         <ui:define name="content">
             <h:panelGroup styleClass="column" layout="block">
                 <h:panelGroup styleClass="ui raised left aligned segment" layout="block">
-                    <h:panelGroup styleClass="ui bottom right attached label" layout="block">
-                        <a href="https://github.com/JayBIOS/quickresponse">
-                            <i class="github icon"/> <h:outputText value="#{applicationController.version}"/>
-                        </a>
-                    </h:panelGroup>
+                    <ui:include src="components/versionLabel.xhtml"/>
                     <h:form id="code" class="ui form" onsubmit="disableEncode()">
                         <ui:insert name="codeForm:fields">
                         </ui:insert>

@@ -4,7 +4,6 @@ import me.jaybios.quickresponse.controllers.requests.CodeRequest;
 import me.jaybios.quickresponse.controllers.requests.MailRequest;
 import me.jaybios.quickresponse.models.AuthenticatedUser;
 import me.jaybios.quickresponse.models.Code;
-import me.jaybios.quickresponse.models.SecureCode;
 import me.jaybios.quickresponse.models.User;
 import me.jaybios.quickresponse.producers.HttpParam;
 import me.jaybios.quickresponse.services.CodeService;
@@ -102,11 +101,22 @@ public class CodeController {
         return null;
     }
 
-    public String store() {
-        Code code;
-        code = codeRequest.getSecure() ? createSecure() : createUnsecure();
+    public void update() {
+        Code code = codeService.findById(UUID.fromString(uuid));
         code.setUri(codeRequest.getUri());
+        code.setSecure(codeRequest.getSecure());
+        code.setPassword(codeRequest.getPassword());
+        codeService.update(code);
+        codeRequest.setPassword(null);
+        qrcode = code.generateImage();
+    }
+
+    public String store() {
+        Code code = new Code();
+        code.setUri(codeRequest.getUri());
+        code.setSecure(codeRequest.getSecure());
         code.setUser(user);
+        code.setPassword(codeRequest.getPassword());
         codeService.store(code);
         uuid = code.getUuid().toString();
         return "pretty:view-result";
@@ -115,15 +125,5 @@ public class CodeController {
     public String storeMail() {
         codeRequest.setUri(mailRequest.getUri());
         return store();
-    }
-
-    private Code createSecure() {
-        SecureCode code = new SecureCode();
-        code.setPassword(codeRequest.getPassword());
-        return code;
-    }
-
-    private Code createUnsecure() {
-        return new Code();
     }
 }

@@ -12,6 +12,7 @@
         <ui:define name="content">
             <h:panelGroup layout="block" styleClass="column">
                 <h:panelGroup layout="block" styleClass="ui raised segment">
+                    <ui:include src="templates/components/versionLabel.xhtml"/>
                     <h:form id="register" styleClass="ui form" onsubmit="disableSubmitButton()">
                         <h:panelGroup layout="block" styleClass="two fields">
                             <h:panelGroup layout="block" styleClass="required field">
@@ -20,7 +21,8 @@
                                     <i class="at icon"/>
                                     <h:inputText id="emailInput" binding="#{registerController.emailInput}"
                                                  a:placeholder="#{dialog['inputs.register.email.placeholder']}"
-                                                 a:type="email" value="#{registerController.user.email}">
+                                                 a:type="email" value="#{registerController.user.email}"
+                                                 autocomplete="email">
                                         <f:ajax delay="400" render="email username errorBlock"
                                                 execute="@this"
                                                 onevent="onEmailChange"/>
@@ -33,7 +35,8 @@
                                 <h:panelGroup id="username" layout="block" styleClass="ui left icon input #{registerController.userInput.valid ? '' : 'error'}">
                                     <i class="user icon"/>
                                     <h:inputText id="userInput" a:placeholder="#{dialog['inputs.username.placeholder']}"
-                                                 binding="#{registerController.userInput}" value="#{registerController.user.username}">
+                                                 binding="#{registerController.userInput}"
+                                                 value="#{registerController.user.username}" autocomplete="username">
                                         <f:ajax delay="400" render="username email errorBlock"
                                                 execute="@this"
                                                 onevent="onUsernameChange"/>
@@ -48,7 +51,7 @@
                                 <h:panelGroup layout="block" styleClass="ui left icon input">
                                     <i class="lock icon"/>
                                     <h:inputSecret id="password" match="#{registerController.confirmPasswordInput}"
-                                                   value="#{registerController.user.password}"
+                                                   value="#{registerController.user.password}" autocomplete="new-password"
                                                    a:placeholder="#{dialog['inputs.register.password.placeholder']}">
                                         <f:validator validatorId="matchPasswordValidator"/>
                                     </h:inputSecret>
@@ -66,7 +69,7 @@
                         </h:panelGroup>
                         <p:commandButton id="submit" action="#{registerController.register}"
                                          ajax="false"
-                                         styleClass="ui primary submit button"
+                                         styleClass="ui primary submit fluid button"
                                          value="#{dialog['buttons.submit']}"/>
                     </h:form>
                 </h:panelGroup>

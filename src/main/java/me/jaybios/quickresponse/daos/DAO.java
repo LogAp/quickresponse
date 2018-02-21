@@ -10,6 +10,7 @@ public interface DAO<T, I extends Serializable> {
     <R> List<R> listRelationshipEntities(T entity, Class<R> relationshipClass);
     void persist(T entity);
     void update(T entity);
+    <U, V> void updateType(String idColumn, U id, String typeColumn, V typeValue);
     void delete(T entity);
     void deleteAll();
 }

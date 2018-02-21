@@ -44,12 +44,12 @@
 
     <url-mapping id="view-login">
         <pattern value="/login"/>
-        <view-id value="unauthenticated/login.xhtml"/>
+        <view-id value="/unauthenticated/login.xhtml"/>
     </url-mapping>
 
     <url-mapping id="view-codes">
         <pattern value="/links"/>
-        <view-id value="authenticated/codes.xhtml"/>
+        <view-id value="/authenticated/codes.xhtml"/>
     </url-mapping>
 
     <url-mapping id="view-code-edit">

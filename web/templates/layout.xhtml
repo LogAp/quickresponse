@@ -24,15 +24,16 @@
             <h:panelGroup layout="block" styleClass="row">
                 <h:panelGroup styleClass="column">
                     <h:panelGroup styleClass="ui fluid stackable menu">
-                        <h:link styleClass="header item" outcome="pretty:view-home" value="Quick Response"/>
+                        <h:link id="home-link" styleClass="header item" outcome="/index" value="Quick Response"/>
                         <h:panelGroup layout="block" rendered="#{!sessionController.userAuthenticated}">
-                            <h:link styleClass="item" outcome="pretty:view-register"
+                            <h:link id="register-link" styleClass="item" outcome="/register"
                                     value="#{dialog['links.register']}"/>
-                            <h:link styleClass="item" outcome="pretty:view-login"
+                            <h:link id="login-link" styleClass="item" outcome="/unauthenticated/login"
                                     value="#{dialog['links.login']}"/>
                         </h:panelGroup>
                         <h:panelGroup layout="block" rendered="#{sessionController.userAuthenticated}">
-                            <h:link styleClass="item" outcome="/authenticated/codes" value="#{dialog['links.codes']}"/>
+                            <h:link id="codes-link" styleClass="item" outcome="/authenticated/codes"
+                                    value="#{dialog['links.codes']}"/>
                             <h:form>
                                 <h:commandLink styleClass="item" action="#{authenticationController.logout}"
                                                value="#{dialog['links.logout']}"/>

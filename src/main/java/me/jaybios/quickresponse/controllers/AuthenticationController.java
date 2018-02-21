@@ -38,12 +38,15 @@ public class AuthenticationController {
     public String login() {
         User user = userService.findByUsername(username);
         if (user == null) {
+            System.out.println("WTF NOT FOUND;");
             return null;
         }
         if (user.getHasher().verify(password, user.getPassword())) {
+            System.out.println("PASSED PASSWORD;");
             session.create(user);
             return "pretty:view-home";
         }
+        System.out.println("WRONG PASSWORD;");
         return null;
     }
 

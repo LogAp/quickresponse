@@ -1,9 +1,9 @@
 package me.jaybios.quickresponse.controllers;
 
-import me.jaybios.quickresponse.models.SecureCode;
+import me.jaybios.quickresponse.models.Code;
 import me.jaybios.quickresponse.producers.HttpParam;
+import me.jaybios.quickresponse.services.CodeService;
 import me.jaybios.quickresponse.services.ResourceService;
-import me.jaybios.quickresponse.services.SecureCodeService;
 
 import javax.enterprise.context.RequestScoped;
 import javax.faces.context.ExternalContext;
@@ -18,11 +18,11 @@ import java.util.UUID;
 public class UnlockController {
 
     @Inject
-    @SecureCodeService
-    private ResourceService<SecureCode, UUID> secureCodeService;
+    @CodeService
+    private ResourceService<Code, UUID> secureCodeService;
 
     @Inject
-    private SecureCode code;
+    private Code code;
 
     @Inject
     @HttpParam

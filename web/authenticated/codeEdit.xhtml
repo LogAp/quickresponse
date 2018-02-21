@@ -17,7 +17,7 @@
                         <h:panelGroup layout="block" styleClass="ui row">
                             <h:panelGroup layout="block" styleClass="ui column">
                                 <h:panelGroup layout="block" styleClass="ui centered card">
-                                    <h:panelGroup layout="block" styleClass="image">
+                                    <h:panelGroup id="qrcode" layout="block" styleClass="image">
                                         <img src="#{codeController.qrcode}" alt="QR Code"/>
                                     </h:panelGroup>
                                 </h:panelGroup>
@@ -37,16 +37,37 @@
                                                              label="Link" styleClass="code padding"/>
                                             </h:panelGroup>
                                         </h:panelGroup>
-                                        <h:panelGroup layout="block" styleClas="field">
+                                        <h:panelGroup layout="block" styleClass="field">
                                             <ui:include src="../templates/components/passwordInput.xhtml"/>
                                         </h:panelGroup>
                                     </h:panelGroup>
+                                    <!--suppress ELValidationInJSP -->
+                                    <p:commandButton id="save" styleClass="ui blue fluid submit button"
+                                                     action="#{codeController.update}" update="@form qrcode"
+                                                     value="#{dialog['buttons.save']}"/>
                                 </h:form>
                             </h:panelGroup>
                         </h:panelGroup>
                     </h:panelGroup>
                 </h:panelGroup>
             </h:panelGroup>
+        </ui:define>
+        <ui:define name="scripts">
+            <script type="application/javascript">
+                function togglePassword() {
+                    $('#code\\:password')
+                        .prop('disabled', function(i, v) { return !v;});
+                }
+
+                function disableEncode() {
+                    $('#code\\:encode').addClass('loading disabled');
+                }
+
+                $(document).ready(function () {
+                    $('#code\\:password')
+                        .prop('disabled', function() { return !$('#code\\:secure').is(':checked');});
+                });
+            </script>
         </ui:define>
     </ui:composition>
 </f:view>

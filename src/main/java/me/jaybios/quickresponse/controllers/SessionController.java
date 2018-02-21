@@ -11,9 +11,6 @@ import java.io.Serializable;
 @Named
 @SessionScoped
 public class SessionController implements Serializable {
-    @Inject
-    private FacesContext context;
-
     private User user;
 
     public User getUser() {
@@ -25,7 +22,7 @@ public class SessionController implements Serializable {
     }
 
     void destroy() {
-        context.getExternalContext().invalidateSession();
+        FacesContext.getCurrentInstance().getExternalContext().invalidateSession();
         this.user = null;
     }
 

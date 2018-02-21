@@ -1,5 +1,8 @@
 package me.jaybios.quickresponse.models;
 
+import me.jaybios.quickresponse.models.listeners.SecureListener;
+import me.jaybios.quickresponse.util.hashers.Hasher;
+import me.jaybios.quickresponse.util.hashers.PBKDF2SHA256Hasher;
 import net.glxn.qrgen.javase.QRCode;
 import org.apache.commons.codec.binary.Base64;
 import org.hibernate.annotations.GenericGenerator;
@@ -9,10 +12,8 @@ import javax.persistence.*;
 import java.util.UUID;
 
 @Entity
-@Inheritance(strategy = InheritanceType.SINGLE_TABLE)
-@DiscriminatorColumn(name = "secure", length = 1, discriminatorType = DiscriminatorType.INTEGER)
-@DiscriminatorValue("0")
-public class Code {
+@EntityListeners(SecureListener.class)
+public class Code implements Secure {
     @Id
     @GeneratedValue(generator = "uuid2")
     @GenericGenerator(name = "uuid2", strategy = "uuid2")
@@ -22,11 +23,34 @@ public class Code {
 
     private String uri;
 
+    private boolean secure;
+
     @ManyToOne
     private User user;
 
+    private String password;
+
+    @Transient
+    private Hasher hasher = new PBKDF2SHA256Hasher();
+
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public Hasher getHasher() {
+        return hasher;
+    }
+
     public UUID getUuid() {
         return uuid;
+    }
+
+    public void setUuid(UUID uuid) {
+        this.uuid = uuid;
     }
 
     public String getUri() {
@@ -45,7 +69,29 @@ public class Code {
         this.user = user;
     }
 
+    public boolean isSecure() {
+        return secure;
+    }
+
+    public void setSecure(boolean secure) {
+        this.secure = secure;
+    }
+
     public QRCode generateQR() {
+        if (isSecure()) {
+            String scheme = System.getenv("APPLICATION_SCHEME");
+
+            if (scheme == null)
+                scheme = "http";
+
+            String applicationUrl = System.getenv("APPLICATION_URL");
+
+            if (applicationUrl == null)
+                applicationUrl = "localhost";
+
+            String uri = String.format("%s://%s/unlock?id=%s", scheme, applicationUrl, getUuid().toString());
+            return QRCode.from(uri);
+        }
         return QRCode.from(uri);
     }
 

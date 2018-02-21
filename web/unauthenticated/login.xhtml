@@ -13,6 +13,7 @@
             <h:panelGroup layout="block" styleClass="column">
                 <h:form id="login" styleClass="ui large form">
                     <h:panelGroup layout="block" styleClass="ui raised segment">
+                        <ui:include src="../templates/components/versionLabel.xhtml"/>
                         <h:panelGroup layout="block" styleClass="two fields">
                             <h:panelGroup layout="block" styleClass="required field">
                                 <!--suppress ELValidationInJSP -->
@@ -21,7 +22,8 @@
                                     <h:inputText id="username" required="true"
                                                  value="#{authenticationController.username}"
                                                  a:placeholder="#{dialog['inputs.username.placeholder']}"
-                                                 label="#{dialog['inputs.username.label']}"/>
+                                                 label="#{dialog['inputs.username.label']}"
+                                                 autocomplete="username"/>
                                 </h:panelGroup>
                             </h:panelGroup>
                             <h:panelGroup layout="block" styleClass="required field">
@@ -29,9 +31,10 @@
                                 <h:panelGroup layout="block" styleClass="ui left icon input">
                                     <i class="lock icon"/>
                                     <h:inputSecret id="password" required="true"
-                                                 value="#{authenticationController.password}"
-                                                 a:placeholder="#{dialog['inputs.register.password.placeholder']}"
-                                                 label="#{dialog['inputs.register.password.label']}"/>
+                                                   value="#{authenticationController.password}"
+                                                   a:placeholder="#{dialog['inputs.register.password.placeholder']}"
+                                                   label="#{dialog['inputs.register.password.label']}"
+                                                   autocomplete="current-password"/>
                                 </h:panelGroup>
                             </h:panelGroup>
                         </h:panelGroup>

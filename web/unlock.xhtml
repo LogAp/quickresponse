@@ -22,6 +22,7 @@
                             </h:panelGroup>
                         </h:panelGroup>
                     </h:form>
+                    <ui:include src="templates/components/versionLabel.xhtml"/>
                 </h:panelGroup>
                 <h:panelGroup styleClass="ui negative message" layout="block" rendered="#{unlockController.invalid}">
                     <p><h:outputText value="#{dialog['messages.unlock.password']}"/></p>

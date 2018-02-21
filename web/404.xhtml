@@ -13,6 +13,7 @@
                     <h2>404 - <h:outputText value="#{dialog['exceptions.404']}"/></h2>
                     <p><h:outputText value="#{dialog['exceptions.404.description']}"/></p>
                     <p><h:link outcome="pretty:view-home" value="#{dialog['exceptions.goToHomePage']}"/></p>
+                    <ui:include src="templates/components/versionLabel.xhtml"/>
                 </div>
             </div>
         </ui:define>

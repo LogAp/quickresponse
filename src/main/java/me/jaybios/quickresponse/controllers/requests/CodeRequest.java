@@ -1,7 +1,6 @@
 package me.jaybios.quickresponse.controllers.requests;
 
 import me.jaybios.quickresponse.models.Code;
-import me.jaybios.quickresponse.models.SecureCode;
 
 public class CodeRequest {
     private String uri;
@@ -35,7 +34,7 @@ public class CodeRequest {
     public static CodeRequest from(Code code) {
         CodeRequest request = new CodeRequest();
         request.setUri(code.getUri());
-        request.setSecure(code instanceof SecureCode);
+        request.setSecure(code.isSecure());
         return request;
     }
 }
